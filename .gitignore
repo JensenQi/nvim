@@ -1,0 +1,6 @@
+.cache/
+core/
+lazy/
+state/
+
+lazy-lock.json
