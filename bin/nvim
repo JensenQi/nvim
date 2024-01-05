@@ -1,0 +1,21 @@
+#!/bin/bash
+
+export XDG_DATA_HOME=~/.config/nvim/share
+export XDG_STATE_HOME=~/.config/nvim/state
+export XDG_CACHE_HOME=~/.config/nvim/.cache
+export ghproxy="https://mirror.ghproxy.com/"
+
+if [ ! -d ~/.config/nvim/core ]; then
+    if [ "$(uname)" == "Darwin" ]; then
+        curl -fLo  ~/.config/nvim/neovim.tar.gz https://mirror.ghproxy.com/https://github.com/neovim/neovim/releases/download/v0.9.5/nvim-macos.tar.gz
+        tar -xzf ~/.config/nvim/neovim.tar.gz -C ~/.config/nvim
+        mv ~/.config/nvim/nvim-macos ~/.config/nvim/core
+    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+        curl -fLo  ~/.config/nvim/neovim.tar.gz https://mirror.ghproxy.com/https://github.com/neovim/neovim/releases/download/v0.9.5/nvim-linux64.tar.gz
+        tar -xzf ~/.config/nvim/neovim.tar.gz -C ~/.config/nvim
+        mv ~/.config/nvim/nvim-linux64 ~/.config/nvim/core
+    fi
+    rm ~/.config/nvim/neovim.tar.gz
+fi
+
+~/.config/nvim/core/bin/nvim $@
