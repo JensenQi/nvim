@@ -10,4 +10,4 @@ map("n", "ge", "$", opt)
 map("v", "v", "<Plug>(expand_region_expand)", opt)
 map("v", "V", "<Plug>(expand_region_shrink)", opt)
 
-
+map("n", "<C-e>", "<C-w>w", opt)
