@@ -5,6 +5,7 @@ export XDG_STATE_HOME=~/.config/nvim/state
 export XDG_CACHE_HOME=~/.config/nvim/.cache
 export ghproxy="https://mirror.ghproxy.com/"
 
+# download nvim
 if [ ! -d ~/.config/nvim/core ]; then
     if [ "$(uname)" == "Darwin" ]; then
         curl -fLo  ~/.config/nvim/neovim.tar.gz https://mirror.ghproxy.com/https://github.com/neovim/neovim/releases/download/v0.9.5/nvim-macos.tar.gz
@@ -17,5 +18,70 @@ if [ ! -d ~/.config/nvim/core ]; then
     fi
     rm ~/.config/nvim/neovim.tar.gz
 fi
+
+
+# install rip grep
+if [ ! -f /usr/bin/rg ] && [ ! -f /bin/rg ]; then
+    echo "Ripgrep for live grep missing, install it"
+    if [ "$(uname)" == "Darwin" ]; then
+        brew install ripgrep
+    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+        sudo apt-get -y install ripgrep
+    fi
+fi
+
+# install fd find
+if [ ! -f /usr/bin/fd ] && [ ! -f /bin/fd ] && [ ! -f /bin/fdfind ] && [ ! -f /usr/bin/fdfind ]; then
+    echo "fd-find for find file missing, install it"
+    if [ "$(uname)" == "Darwin" ]; then
+        brew install fd
+    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+        sudo apt-get -y install fd-find
+    fi
+fi
+
+# install cmake
+if [ ! -f /usr/bin/cmake ] && [ ! -f /bin/cmake ]; then
+    echo "CMake for telescope fzf native missing, install it"
+    if [ "$(uname)" == "Darwin" ]; then
+        brew install cmake
+    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+        sudo apt-get -y install cmake
+    fi
+fi
+
+# install gcc
+if [ ! -f /usr/bin/gcc ] && [ ! -f /bin/gcc ]; then
+    echo "CMake for telescope fzf native missing, install it"
+    if [ "$(uname)" == "Darwin" ]; then
+        brew install gcc
+    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+        sudo apt-get -y install gcc
+    fi
+fi
+
+# install g++
+if [ ! -f /usr/bin/g++ ] && [ ! -f /bin/g++ ]; then
+    echo "CMake for telescope fzf native missing, install it"
+    if [ "$(uname)" == "Darwin" ]; then
+        brew install g++
+    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+        sudo apt-get -y install g++
+    fi
+fi
+
+# install clang
+if [ ! -f /usr/bin/clang ] && [ ! -f /bin/clang ]; then
+    echo "CMake for telescope fzf native missing, install it"
+    if [ "$(uname)" == "Darwin" ]; then
+        brew install clang
+    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+        sudo apt-get -y install clang
+    fi
+fi
+
+
+
+
 
 ~/.config/nvim/core/bin/nvim $@
