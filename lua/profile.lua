@@ -10,3 +10,9 @@ vim.opt.cursorline = true       -- 光标行高亮
 
 vim.g.mapleader = " "           -- Leader Key 设置为空格
 vim.g.maplocalleader = " "
+
+vim.cmd("command Q q")
+vim.cmd("command W w")
+vim.cmd("command WQ wq")
+vim.cmd("command Wq wq")
+vim.cmd("command Todo TodoTelescope")
