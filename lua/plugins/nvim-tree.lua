@@ -60,7 +60,14 @@ return {
         dependencies = { os.getenv("ghproxy") .. "https://github.com/nvim-tree/nvim-web-devicons.git" },
         config = function()
             require("nvim-tree").setup({
-                on_attach = my_on_attach
+                on_attach = my_on_attach,
+                renderer = {
+                    group_empty = true,
+                },
+                filters = {
+                    custom = { "\\.git" , "\\.vim", "\\.idea", "target", "node_modules"},
+                    exclude = {},
+                },
             })
         end
     }
