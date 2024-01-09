@@ -1,7 +1,6 @@
-
 local function open_nvim_tree(data)
     local api = require("nvim-tree.api")
-    api.tree.toggle({ focus = false, find_file = true})
+    api.tree.toggle({ focus = false, find_file = true })
 end
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 
@@ -37,20 +36,21 @@ local function my_on_attach(bufnr)
     -- api.config.mappings.default_on_attach(bufnr) -- default mapping
 
     -- custom mapping
-    vim.keymap.set('n', '<Tab>',    api.node.open.preview,                 opts("Preview"))
-    vim.keymap.set('n', 'o',        api.node.open.preview,                 opts("expand"))
-    vim.keymap.set('n', '<CR>',     api.node.open.edit,                 opts("Edit"))
-    vim.keymap.set('n', 'zc',       api.node.navigate.parent_close,        opts("Close parent dir"))
-    vim.keymap.set('n', 'ZZ',       api.tree.change_root_to_node,        opts("set dir as root"))
-    vim.keymap.set('n', 'nn',    api.fs.create,                          opts('Create'))
-    vim.keymap.set('n', 'gg',    api.node.navigate.parent,                 opts('go to parent'))
-    vim.keymap.set('n', 'rr',        api.fs.rename,                        opts('Rename'))
-    vim.keymap.set('n', 'DD',       api.fs.remove,                         opts('Remove'))
-    vim.keymap.set('n', 'dd',       api.fs.trash,                          opts('Trash'))
-    vim.keymap.set('n', 'yy',       api.fs.copy.node,                      opts('copy'))
-    vim.keymap.set('n', 'p',        api.fs.paste,                           opts('paste'))
-    vim.keymap.set('n', '?',        api.node.show_info_popup,              opts('File Infomation'))
-    vim.keymap.set('n', 'R',        api.tree.reload,              opts('Reload'))
+    vim.api.nvim_set_keymap('n', '<C-e>', '<C-w>w', { noremap = true, silent = true }) -- File Explorer 与 Editor 切换
+    vim.keymap.set('n', '<Tab>', api.node.open.preview, opts("Preview"))
+    vim.keymap.set('n', 'o', api.node.open.preview, opts("expand"))
+    vim.keymap.set('n', '<CR>', api.node.open.edit, opts("Edit"))
+    vim.keymap.set('n', 'zc', api.node.navigate.parent_close, opts("Close parent dir"))
+    vim.keymap.set('n', 'ZZ', api.tree.change_root_to_node, opts("set dir as root"))
+    vim.keymap.set('n', 'nn', api.fs.create, opts('Create'))
+    vim.keymap.set('n', 'gg', api.node.navigate.parent, opts('go to parent'))
+    vim.keymap.set('n', 'rr', api.fs.rename, opts('Rename'))
+    vim.keymap.set('n', 'DD', api.fs.remove, opts('Remove'))
+    vim.keymap.set('n', 'dd', api.fs.trash, opts('Trash'))
+    vim.keymap.set('n', 'yy', api.fs.copy.node, opts('copy'))
+    vim.keymap.set('n', 'p', api.fs.paste, opts('paste'))
+    vim.keymap.set('n', '?', api.node.show_info_popup, opts('File Infomation'))
+    vim.keymap.set('n', 'R', api.tree.reload, opts('Reload'))
 end
 
 return {
