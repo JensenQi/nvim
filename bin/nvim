@@ -7,81 +7,67 @@ export ghproxy="https://mirror.ghproxy.com/"
 
 # download nvim
 if [ ! -d ~/.config/nvim/core ]; then
-    if [ "$(uname)" == "Darwin" ]; then
-        curl -fLo  ~/.config/nvim/neovim.tar.gz https://mirror.ghproxy.com/https://github.com/neovim/neovim/releases/download/v0.9.5/nvim-macos.tar.gz
-        tar -xzf ~/.config/nvim/neovim.tar.gz -C ~/.config/nvim
-        mv ~/.config/nvim/nvim-macos ~/.config/nvim/core
-    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-        curl -fLo  ~/.config/nvim/neovim.tar.gz https://mirror.ghproxy.com/https://github.com/neovim/neovim/releases/download/v0.9.5/nvim-linux64.tar.gz
-        tar -xzf ~/.config/nvim/neovim.tar.gz -C ~/.config/nvim
-        mv ~/.config/nvim/nvim-linux64 ~/.config/nvim/core
-    fi
+    curl -fLo  ~/.config/nvim/neovim.tar.gz ${ghproxy}/https://github.com/neovim/neovim/releases/download/v0.9.5/nvim-linux64.tar.gz
+    tar -xzf ~/.config/nvim/neovim.tar.gz -C ~/.config/nvim
+    mv ~/.config/nvim/nvim-linux64 ~/.config/nvim/core
     rm ~/.config/nvim/neovim.tar.gz
 fi
 
 
 # install rip grep
 if [ ! -f /usr/bin/rg ] && [ ! -f /bin/rg ]; then
-    echo "Ripgrep for live grep missing, install it"
-    if [ "$(uname)" == "Darwin" ]; then
-        brew install ripgrep
-    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-        sudo apt-get -y install ripgrep
-    fi
+    sudo apt-get -y install ripgrep
 fi
 
 # install fd find
-if [ ! -f /usr/bin/fd ] && [ ! -f /bin/fd ] && [ ! -f /bin/fdfind ] && [ ! -f /usr/bin/fdfind ]; then
-    echo "fd-find for find file missing, install it"
-    if [ "$(uname)" == "Darwin" ]; then
-        brew install fd
-    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-        sudo apt-get -y install fd-find
-    fi
+if [ ! -f /bin/fdfind ] && [ ! -f /usr/bin/fdfind ]; then
+    sudo apt-get -y install fd-find
 fi
 
 # install cmake
 if [ ! -f /usr/bin/cmake ] && [ ! -f /bin/cmake ]; then
-    echo "CMake for telescope fzf native missing, install it"
-    if [ "$(uname)" == "Darwin" ]; then
-        brew install cmake
-    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-        sudo apt-get -y install cmake
-    fi
+    sudo apt-get -y install cmake
 fi
 
 # install gcc
 if [ ! -f /usr/bin/gcc ] && [ ! -f /bin/gcc ]; then
-    echo "CMake for telescope fzf native missing, install it"
-    if [ "$(uname)" == "Darwin" ]; then
-        brew install gcc
-    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-        sudo apt-get -y install gcc
-    fi
+    sudo apt-get -y install gcc
 fi
 
 # install g++
 if [ ! -f /usr/bin/g++ ] && [ ! -f /bin/g++ ]; then
-    echo "CMake for telescope fzf native missing, install it"
-    if [ "$(uname)" == "Darwin" ]; then
-        brew install g++
-    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-        sudo apt-get -y install g++
-    fi
+    sudo apt-get -y install g++
 fi
 
 # install clang
 if [ ! -f /usr/bin/clang ] && [ ! -f /bin/clang ]; then
-    echo "CMake for telescope fzf native missing, install it"
-    if [ "$(uname)" == "Darwin" ]; then
-        brew install clang
-    elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-        sudo apt-get -y install clang
-    fi
+    sudo apt-get -y install clang
+fi
+
+# init clangd
+if [ ! -f /usr/bin/clangd ] && [ ! -f /bin/clangd ]; then
+    sudo apt-get -y install clangd
+fi
+
+# install lldb
+if [ ! -f /usr/bin/lldb ] && [ ! -f /bin/lldb ]; then
+    sudo apt-get -y install lldb
 fi
 
 
-
-
+# install node.js
+if [ ! -d ${XDG_DATA_HOME}/node ]; then
+    echo "node.js missing, install it..."
+    curl -fLo  ${XDG_DATA_HOME}/node.tar.xz https://npmmirror.com/mirrors/node/v18.19.0/node-v18.19.0-linux-x64.tar.xz
+    tar -xJf ${XDG_DATA_HOME}/node.tar.xz -C ${XDG_DATA_HOME}
+    mv ${XDG_DATA_HOME}/node-v18.19.0-linux-x64 ${XDG_DATA_HOME}/node
+    rm ${XDG_DATA_HOME}/node.tar.xz
+    export PATH=${XDG_DATA_HOME}/node/bin:$PATH
+    npm config set registry http://registry.npmmirror.com
+    npm config set coc.nvim:registry http://registry.npmmirror.com
+    npm install -g yarn
+else
+    export PATH=${XDG_DATA_HOME}/node/bin:$PATH
+fi
 
 ~/.config/nvim/core/bin/nvim $@
