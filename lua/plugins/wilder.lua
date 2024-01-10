@@ -1,3 +1,4 @@
+-- 命令 & 查找 popup 插件
 return {
     {
         os.getenv("ghproxy") .. "https://github.com/gelguy/wilder.nvim.git",

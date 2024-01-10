@@ -1,13 +1,10 @@
+-- 快捷命令插件
 return {
     {
         os.getenv("ghproxy") .. "https://github.com/FeiyouG/commander.nvim.git",
         version = "*",
         dependencies = { os.getenv("ghproxy") .. "https://github.com/nvim-telescope/telescope.nvim.git" },
         config = function()
-            local map = vim.api.nvim_set_keymap
-            local opt = { noremap = true, silent = true }
-            map("n", "<esc>p", "<CMD>Telescope commander<CR>", opt) -- 打开终端
-
             local commander = require("commander")
             commander.setup({
                 components = { "DESC", "KEYS", "CAT" },
@@ -19,7 +16,6 @@ return {
             })
             commander.add({
                 { desc = "Build Java", cmd = "<CMD>CocCommand java.project.build<CR>" },
-
             })
         end
     }

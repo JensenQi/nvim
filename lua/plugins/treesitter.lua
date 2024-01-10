@@ -1,3 +1,4 @@
+-- 语法分析插件
 return {
     {
         os.getenv("ghproxy") .. "https://github.com/nvim-treesitter/nvim-treesitter.git",

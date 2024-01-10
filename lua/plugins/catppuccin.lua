@@ -1,3 +1,4 @@
+-- 主题插件
 return {
     {
         os.getenv("ghproxy") .. "https://github.com/catppuccin/nvim.git",

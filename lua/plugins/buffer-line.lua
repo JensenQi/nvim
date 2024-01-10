@@ -1,3 +1,4 @@
+-- tab 页插件
 return {
     {
         os.getenv("ghproxy") .. "https://github.com/akinsho/bufferline.nvim.git",
@@ -8,9 +9,6 @@ return {
         },
         config = function()
             local buf_del = require("bufdelete")
-            local map = vim.api.nvim_set_keymap
-            local opt = { noremap = true, silent = true }
-            map("n", "<Leader>q", ":Bdelete<CR>", opt) -- 关闭 tab
             require("bufferline").setup({
                 options = {
                     close_if_last_window = false,

@@ -9,8 +9,6 @@ return {
                 navigation = true,
                 search_key = "<leader>f",
                 cancel_search_key = "<leader>F",
-                --  color_key = "<leader>k",
-                --  cancel_color_key = "<leader>K",
             })
         end
     }

@@ -1,3 +1,4 @@
+-- 文件树插件
 local function open_nvim_tree(data)
     local api = require("nvim-tree.api")
     api.tree.toggle({ focus = false, find_file = true })
@@ -33,10 +34,8 @@ local function my_on_attach(bufnr)
             nowait = true
         }
     end
-    -- api.config.mappings.default_on_attach(bufnr) -- default mapping
 
     -- custom mapping
-    vim.api.nvim_set_keymap('n', '<C-e>', '<C-w>w', { noremap = true, silent = true }) -- File Explorer 与 Editor 切换
     vim.keymap.set('n', '<Tab>', api.node.open.preview, opts("Preview"))
     vim.keymap.set('n', 'o', api.node.open.preview, opts("expand"))
     vim.keymap.set('n', '<CR>', api.node.open.edit, opts("Edit"))

@@ -1,3 +1,4 @@
+-- 全局检索插件
 return {
     {
         os.getenv("ghproxy") .. "https://github.com/nvim-telescope/telescope.nvim.git",
@@ -14,12 +15,6 @@ return {
         },
         config = function()
             local actions = require("telescope.actions")
-            local map = vim.api.nvim_set_keymap
-            local opt = { noremap = true, silent = true }
-            map("n", "<A-f>", "/", opt)                          -- 页面内关键词查找
-            map("n", "<C-F>", ":Telescope live_grep<CR>", opt)   -- 全局关键词查找
-            map("n", "<esc>o", ":Telescope find_files<CR>", opt) -- 全局文件查找
-
             local previewers = require("telescope.previewers")
             local Job = require("plenary.job")
             local new_maker = function(filepath, bufnr, opts)

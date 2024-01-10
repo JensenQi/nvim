@@ -1,3 +1,4 @@
+-- 页面内快速跳转插件
 return {
     {
         os.getenv("ghproxy") .. "https://github.com/ggandor/leap.nvim.git",
