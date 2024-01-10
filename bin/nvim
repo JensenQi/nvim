@@ -70,4 +70,20 @@ else
     export PATH=${XDG_DATA_HOME}/node/bin:$PATH
 fi
 
+# install maven
+export M2_HOME=${XDG_DATA_HOME}/maven
+if [ ! -d ${XDG_DATA_HOME}/maven ]; then
+    echo "maven missing, install it..."
+    curl -fLo  ${XDG_DATA_HOME}/maven.tar.gz https://mirrors.aliyun.com/apache/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz
+    tar -xzf ${XDG_DATA_HOME}/maven.tar.gz -C ${XDG_DATA_HOME}
+    mv ${XDG_DATA_HOME}/apache-maven-3.8.8 ${XDG_DATA_HOME}/maven
+    rm ${XDG_DATA_HOME}/maven.tar.gz
+    export PATH=${XDG_DATA_HOME}/maven/bin:$PATH
+else
+    export PATH=${XDG_DATA_HOME}/maven/bin:$PATH
+fi
+
+
+
+
 ~/.config/nvim/core/bin/nvim $@
