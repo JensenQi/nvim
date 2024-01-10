@@ -13,12 +13,12 @@ return {
             }
         },
         config = function()
+            local actions = require("telescope.actions")
             local map = vim.api.nvim_set_keymap
             local opt = { noremap = true, silent = true }
-            map("n", "<A-f>", "/", opt)                         -- 页面内关键词查找
-            map("n", "<C-F>", ":Telescope live_grep<CR>", opt)  -- 全局关键词查找
-            map("n", "<C-o>", ":Telescope find_files<CR>", opt) -- 全局文件查找
-            map("n", "<A-o>", ":Telescope find_files<CR>", opt) -- 全局文件查找
+            map("n", "<A-f>", "/", opt)                          -- 页面内关键词查找
+            map("n", "<C-F>", ":Telescope live_grep<CR>", opt)   -- 全局关键词查找
+            map("n", "<esc>o", ":Telescope find_files<CR>", opt) -- 全局文件查找
 
             local previewers = require("telescope.previewers")
             local Job = require("plenary.job")
@@ -51,6 +51,11 @@ return {
                     buffer_previewer_maker = new_maker,
                     preview = {
                         filesize_limit = 5, -- MB
+                    },
+                    mappings = {
+                        i = {
+                            ["<esc>"] = actions.close
+                        },
                     },
                 }
 
