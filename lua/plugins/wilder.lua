@@ -3,10 +3,6 @@ return {
     {
         os.getenv("ghproxy") .. "https://github.com/gelguy/wilder.nvim.git",
         version = "*",
-        opt = {
-            case_sensitive = 2
-
-        },
         config = function()
                 local wilder = require('wilder')
                 wilder.setup({modes = {':', '/', '?'}})

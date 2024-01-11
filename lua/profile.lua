@@ -9,6 +9,8 @@ vim.opt.expandtab = true       -- 用空格替换 tab
 vim.opt.cursorline = true      -- 光标行高亮
 vim.opt.timeoutlen = 400       -- leader & esc 等待延迟时长(ms)
 
+vim.opt.termguicolors = true
+
 -- coc 配置
 vim.opt.backup = false
 vim.opt.writebackup = false

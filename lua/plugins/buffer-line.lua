@@ -13,9 +13,15 @@ return {
                 options = {
                     close_if_last_window = false,
                     separator_style = "slant",
-                    modified_icon = '●',
                     buffer_close_icon = '',
-                    close_icon = '',
+                    diagnostics = "coc",
+                    numbers = function(opts)
+                        return string.format('%s', opts.raise(opts.ordinal))
+                    end,
+                    diagnostics_indicator = function(count, level, diagnostics_dict, context)
+                        local icon = level:match("error") and " " or " "
+                        return " " .. icon .. count
+                    end,
                     offsets = {
                         {
                             filetype = "NvimTree",
@@ -23,10 +29,6 @@ return {
                             text_align = "left",
                             separator = true,
                         }
-                    },
-                    background = {
-                        fg = '#FFFFFF',
-                        bg = '#000000'
                     },
                     right_mouse_command = "",
                     close_command = function(buf_num)
