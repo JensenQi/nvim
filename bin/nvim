@@ -66,23 +66,69 @@ if [ ! -d ${XDG_DATA_HOME}/node ]; then
     npm config set registry http://registry.npmmirror.com
     npm config set coc.nvim:registry http://registry.npmmirror.com
     npm install -g yarn
+    npm install -g neovim
+    npm install -g tree-sitter
+    wget -O ${XDG_DATA_HOME}/node/bin/tree-sitter.gz https://mirror.ghproxy.com/https://github.com/tree-sitter/tree-sitter/releases/download/v0.20.8/tree-sitter-linux-x64.gz
+    gzip -d ${XDG_DATA_HOME}/node/bin/tree-sitter.gz
+    chmod +x ${XDG_DATA_HOME}/node/bin/tree-sitter
 else
     export PATH=${XDG_DATA_HOME}/node/bin:$PATH
 fi
 
 # install maven
 export M2_HOME=${XDG_DATA_HOME}/maven
+export PATH=${XDG_DATA_HOME}/maven/bin:$PATH
 if [ ! -d ${XDG_DATA_HOME}/maven ]; then
     echo "maven missing, install it..."
     curl -fLo  ${XDG_DATA_HOME}/maven.tar.gz https://mirrors.aliyun.com/apache/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz
     tar -xzf ${XDG_DATA_HOME}/maven.tar.gz -C ${XDG_DATA_HOME}
     mv ${XDG_DATA_HOME}/apache-maven-3.8.8 ${XDG_DATA_HOME}/maven
     rm ${XDG_DATA_HOME}/maven.tar.gz
-    export PATH=${XDG_DATA_HOME}/maven/bin:$PATH
-else
-    export PATH=${XDG_DATA_HOME}/maven/bin:$PATH
 fi
 
+# install python
+export PYTHONPATH=${XDG_DATA_HOME}/anaconda/bin
+if [ ! -d ${XDG_DATA_HOME}/anaconda ]; then
+    echo "anaconda missing, install it..."
+    wget --no-check-certificate -U NoSuchBrowser/1.0 -O ${XDG_DATA_HOME}/anaconda.sh https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2020.02-Linux-x86_64.sh
+    bash ${XDG_DATA_HOME}/anaconda.sh -b -p ${XDG_DATA_HOME}/anaconda
+    rm ${XDG_DATA_HOME}/anaconda.sh
+    export PATH=${XDG_DATA_HOME}/anaconda/bin:$PATH
+    ${PYTHONPATH}/python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
+    ${PYTHONPATH}/pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+    ${PYTHONPATH}/pip install neovim typing_extensions
+else
+    export PATH=${XDG_DATA_HOME}/anaconda/bin:$PATH
+fi
+
+# install golang
+# export GOPROXY=https://mirrors.aliyun.com/goproxy/
+# export GOPROXY=https://goproxy.io,direct
+export GOPROXY=https://goproxy.cn,direct
+export GOPATH=${XDG_DATA_HOME}/go
+export GO111MODULE=on
+export PATH=${XDG_DATA_HOME}/go/bin:$PATH
+if [ ! -d ${XDG_DATA_HOME}/go ]; then
+    echo "golang missing, install it..."
+    curl -fLo  ${XDG_DATA_HOME}/go.tar.gz https://mirrors.aliyun.com/golang/go1.21.0.linux-amd64.tar.gz
+    tar -xzf ${XDG_DATA_HOME}/go.tar.gz -C ${XDG_DATA_HOME}
+    rm ${XDG_DATA_HOME}/go.tar.gz
+    go install github.com/segmentio/golines@v0.9.0
+fi
+
+
+# install rust
+export RUSTUP_UPDATE_ROOT=https://mirrors.aliyun.com/rustup/rustup
+export RUSTUP_DIST_SERVER=https://mirrors.aliyun.com/rustup
+export CARGO_HOME=${XDG_DATA_HOME}/cargo
+export RUSTUP_HOME=${XDG_DATA_HOME}/rustup
+export PATH=${XDG_DATA_HOME}/cargo/bin:$PATH
+if [ ! -d ${XDG_DATA_HOME}/cargo ]; then
+    echo "install rust"
+    wget -O ${XDG_DATA_HOME}/rustup.sh https://mirrors.aliyun.com/repo/rust/rustup-init.sh
+    bash ${XDG_DATA_HOME}/rustup.sh -y
+    rm ${XDG_DATA_HOME}/rustup.sh
+fi
 
 
 
