@@ -128,6 +128,9 @@ if [ ! -d ${XDG_DATA_HOME}/cargo ]; then
     wget -O ${XDG_DATA_HOME}/rustup.sh https://mirrors.aliyun.com/repo/rust/rustup-init.sh
     bash ${XDG_DATA_HOME}/rustup.sh -y
     rm ${XDG_DATA_HOME}/rustup.sh
+    wget -O ${XDG_DATA_HOME}/rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer.gz ${ghproxy}/https://github.com/rust-lang/rust-analyzer/releases/download/2024-01-08/rust-analyzer-x86_64-unknown-linux-gnu.gz
+    gzip -d ${XDG_DATA_HOME}/rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer.gz
+    chmod +x ${XDG_DATA_HOME}/rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer
 fi
 
 

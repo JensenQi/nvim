@@ -13,6 +13,7 @@ end
 return {
     os.getenv("ghproxy") .. "https://github.com/neoclide/coc.nvim.git",
     branch = "release",
+    dependencies = { os.getenv("ghproxy") .. "https://github.com/honza/vim-snippets.git" },
     init = function()
         vim.g.coc_start_at_startup = 1
         vim.g.coc_config_home = '~/.config/nvim/lua/configurations/plugins/coc/'
@@ -23,7 +24,7 @@ return {
             "coc-java", "coc-go", "coc-golines",
             "coc-sh", "coc-pyright", "coc-sumneko-lua", "coc-vimlsp",
             "coc-toml", "coc-xml", "coc-yaml", "coc-json",
-            "coc-sql", "coc-docker", "coc-git"
+            "coc-sql", "coc-docker", "coc-git", "coc-snippets"
         }
     end,
     config = function()
