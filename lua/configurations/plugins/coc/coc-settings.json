@@ -1,0 +1,4 @@
+{
+    "sumneko-lua.enableNvimLuaDev": true,
+    "codeLens.enable": true
+}

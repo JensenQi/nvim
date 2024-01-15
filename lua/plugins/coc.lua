@@ -28,8 +28,6 @@ return {
         }
     end,
     config = function()
-        vim.fn['coc#config']('sumneko-lua', { enableNvimLuaDev = true })
-
         -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
         vim.api.nvim_create_augroup("CocGroup", {})
         vim.api.nvim_create_autocmd("CursorHold", {
