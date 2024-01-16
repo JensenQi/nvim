@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <mirrors>
+        <mirror>
+            <id>AliyunCenter</id>
+            <name>Aliyun central</name>
+            <url>https://maven.aliyun.com/repository/central</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+        <mirror>
+            <id>sjtu</id>
+            <name>Shanghai Jiao Tong University</name>
+            <url>https://mirrors.sjtug.sjtu.edu.cn/maven-central/</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+        <mirror>
+            <id>nju</id>
+            <name>Nanjing University</name>
+            <url>https://repo.nju.edu.cn/repository/maven-public</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+        <mirror>
+            <id>AliyunPublic</id>
+            <name>aliyun public</name>
+            <url>https://maven.aliyun.com/nexus/content/groups/public</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+        <mirror>
+            <id>AliyunJcenter</id>
+            <name>aliyun jcenter</name>
+            <url>https://maven.aliyun.com/nexus/content/repositories/jcenter</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+        <mirror>
+            <id>AliyunGoogle</id>
+            <name>aliyun google</name>
+            <url>https://maven.aliyun.com/nexus/content/repositories/google</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+        <mirror>
+            <id>AliyunGradlePlugin</id>
+            <name>aliyun gradle plugin</name>
+            <url>https://maven.aliyun.com/nexus/content/repositories/gradle-plugin</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+        <mirror>
+            <id>AliyunSpring</id>
+            <name>aliyun spring</name>
+            <url>https://maven.aliyun.com/repository/spring</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+        <mirror>
+            <id>AliyunSpringPlugin</id>
+            <name>aliyun spring plugin</name>
+            <url>https://maven.aliyun.com/repository/spring-plugin</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+        <mirror>
+            <id>AliyunGrails</id>
+            <name>aliyun grails core</name>
+            <url>https://maven.aliyun.com/repository/grails-core</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+        <mirror>
+            <id>AliyunApacheSnapshots</id>
+            <name>aliyun apache snapshots</name>
+            <url>https://maven.aliyun.com/repository/apache-snapshots</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+        <mirror>
+            <id>nexus</id>
+            <name>internal nexus repository</name>
+            <url>http://repo.maven.apache.org/maven2</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+
+    </mirrors>
+</settings>

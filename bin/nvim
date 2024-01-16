@@ -4,6 +4,7 @@ export XDG_DATA_HOME=~/.config/nvim/share
 export XDG_STATE_HOME=~/.config/nvim/state
 export XDG_CACHE_HOME=~/.config/nvim/.cache
 export ghproxy="https://mirror.ghproxy.com/"
+export NVIM_HOME=$(dirname "$0")/..
 
 # download nvim
 if [ ! -d ~/.config/nvim/core ]; then
@@ -84,7 +85,21 @@ if [ ! -d ${XDG_DATA_HOME}/maven ]; then
     tar -xzf ${XDG_DATA_HOME}/maven.tar.gz -C ${XDG_DATA_HOME}
     mv ${XDG_DATA_HOME}/apache-maven-3.8.8 ${XDG_DATA_HOME}/maven
     rm ${XDG_DATA_HOME}/maven.tar.gz
+    if [ ! -f ~/.m2/settings.xml ]; then
+        cp ~/.config/nvim/lua/configurations/maven-settings.xml ~/.m2/settings.xml
+    fi
 fi
+
+# install coursier for scala
+export COURSIER_REPOSITORIES="https://maven.aliyun.com/repository/central|https://maven.aliyun.com/nexus/content/groups/public|https://maven.aliyun.com/nexus/content/repositories/jcenter|https://maven.aliyun.com/nexus/content/repositories/google|https://maven.aliyun.com/nexus/content/repositories/gradle-plugin|https://maven.aliyun.com/repository/spring|https://maven.aliyun.com/repository/spring-plugin|https://maven.aliyun.com/repository/grails-core|https://maven.aliyun.com/repository/apache-snapshots|https://mirrors.sjtug.sjtu.edu.cn/maven-central|https://repo.nju.edu.cn/repository/maven-public"
+export COURSIER_MIRRORS=~/.config/nvim/lua/configurations/coursier-mirror.properties
+export PATH=${XDG_DATA_HOME}/coursier/bin:$PATH
+if [ ! -d ${XDG_DATA_HOME}/coursier ]; then
+    mkdir -p ${XDG_DATA_HOME}/coursier/bin
+    curl -fL "${ghproxy}/https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz" | gzip -d > ${XDG_DATA_HOME}/coursier/bin/cs
+    chmod +x ${XDG_DATA_HOME}/coursier/bin/cs
+fi
+
 
 # install python
 export PYTHONPATH=${XDG_DATA_HOME}/anaconda/bin

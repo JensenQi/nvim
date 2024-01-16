@@ -21,13 +21,18 @@ return {
         vim.g.coc_global_extensions = { -- https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions#implemented-coc-extensions
             "coc-clangd", "coc-cmake", "coc-clang-format-style-options", "coc-rust-analyzer",
             "coc-html", "coc-css", "coc-tsserver", "coc-vetur", "coc-eslint",
-            "coc-java", "coc-go", "coc-golines",
+            "coc-java", "coc-go", "coc-golines", "coc-metals",
             "coc-sh", "coc-pyright", "coc-sumneko-lua", "coc-vimlsp",
             "coc-toml", "coc-xml", "coc-yaml", "coc-json",
             "coc-sql", "coc-docker", "coc-git", "coc-snippets"
         }
     end,
     config = function()
+        vim.fn['coc#config']('metals', {
+            -- 因为需要用绝对路径，因此放到 lua 中处理而不直接放到 settings.json
+            mavenScript = os.getenv("NVIM_HOME") .. "/share/maven/bin/mvn"
+        })
+
         -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
         vim.api.nvim_create_augroup("CocGroup", {})
         vim.api.nvim_create_autocmd("CursorHold", {
