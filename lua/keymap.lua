@@ -49,3 +49,5 @@ map('n', '<C-e>', '<C-w>w', opt)                                   -- File Explo
 
 map("n", "<A-f>", "/", opt)                                        -- 页面内关键词查找
 map("n", "<C-F>", ":Telescope live_grep<CR>", opt)                 -- 全局关键词查找
+
+map("n", "<A-r>", "<Plug>(coc-rename)", {silent = true})
