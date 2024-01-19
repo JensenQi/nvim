@@ -1,0 +1,7 @@
+.vim
+.idea
+.bloop
+.metals
+target
+node_modules
+__pycache__

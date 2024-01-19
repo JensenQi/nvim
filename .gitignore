@@ -4,5 +4,6 @@ core/
 lazy/
 state/
 share/
+**.pyc
 
 lazy-lock.json
