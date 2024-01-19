@@ -41,7 +41,7 @@ return {
                 defaults = {
                     file_ignore_patterns = {
                         "%.png", "%.jpg", "%.jpeg", "%.jar", "%.exe",
-                        "node_modules", "target", "build"
+                        "node_modules", "target", "build", "%.pyc"
                     },
                     buffer_previewer_maker = new_maker,
                     preview = {

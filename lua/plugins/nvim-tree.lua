@@ -64,7 +64,10 @@ return {
                     group_empty = true,
                 },
                 filters = {
-                    custom = { "\\.git" , "\\.vim", "\\.idea", "target", "node_modules"},
+                    custom = { 
+                        "\\.git" , "\\.vim", "\\.idea", "target", "build", 
+                        "node_modules", "__pycache__", "\\.bloop", "\\.metals"
+                    },
                     exclude = {},
                 },
             })
