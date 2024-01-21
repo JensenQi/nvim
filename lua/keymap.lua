@@ -38,6 +38,7 @@ map("i", "<C-A-L>", "<cmd>CocCommand editor.action.formatDocument<CR>", { silent
 map("n", "<A-Enter>", "<Plug>(coc-codeaction-cursor)", opt)                                -- 修复建议
 map("i", "<A-Enter>", "<C-o><Plug>(coc-codeaction-cursor)", opt)
 
+map("n", "P", "<cmd>CocList -A --normal yank<cr>", opt)
 
 map("n", "<C-_>", "<Plug>(comment_toggle_linewise_current)j", opt) -- 快速注释当前行并移动到下一行
 map("v", "<C-_>", "<Plug>(comment_toggle_linewise_visual)", opt)   -- 快速注释选中块
@@ -50,4 +51,4 @@ map('n', '<C-e>', '<C-w>w', opt)                                   -- File Explo
 map("n", "<A-f>", "/", opt)                                        -- 页面内关键词查找
 map("n", "<C-F>", ":Telescope live_grep<CR>", opt)                 -- 全局关键词查找
 
-map("n", "<A-r>", "<Plug>(coc-rename)", {silent = true})
+map("n", "<A-r>", "<Plug>(coc-rename)", { silent = true })
