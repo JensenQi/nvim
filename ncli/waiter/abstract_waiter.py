@@ -75,6 +75,7 @@ class AbstractWaiter(object):
                 break
 
         self.project_loc = AbstractWaiter.ask("project location", default_loc)
+        self.mkdir(".vim")
 
         StaticResource("LICENSE").save(f"{self.project_loc}/LICENSE")
         StaticResource("gitignore").save(f"{self.project_loc}/.gitignore")

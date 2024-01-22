@@ -2,10 +2,13 @@
 return {
     {
         os.getenv("ghproxy") .. "https://github.com/nvim-telescope/telescope.nvim.git",
-        tag = '0.1.5',
+        branch = 'master',
         dependencies = {
             {
                 os.getenv("ghproxy") .. "https://github.com/nvim-lua/plenary.nvim.git"
+            },
+            {
+                os.getenv("ghproxy") .. "https://github.com/dawsers/telescope-file-history.nvim.git"
             },
             {
                 os.getenv("ghproxy") .. "https://github.com/nvim-telescope/telescope-fzf-native.nvim.git",
@@ -37,7 +40,8 @@ return {
                 }):sync()
             end
 
-            require("telescope").setup({
+            local telescope = require("telescope")
+            telescope.setup({
                 defaults = {
                     file_ignore_patterns = {
                         "%.png", "%.jpg", "%.jpeg", "%.jar", "%.exe",
@@ -51,11 +55,35 @@ return {
                         i = {
                             ["<Tab>"] = actions.select_default,
                             ["<esc>"] = actions.close,
+                            ["<C-j>"] = actions.preview_scrolling_down,
+                            ["<C-k>"] = actions.preview_scrolling_up,
+                            ["<C-h>"] = actions.preview_scrolling_left,
+                            ["<C-l>"] = actions.preview_scrolling_right,
                         },
+                        n = {
+                            ["<C-j>"] = actions.preview_scrolling_down,
+                            ["<C-k>"] = actions.preview_scrolling_up,
+                            ["<C-h>"] = actions.preview_scrolling_left,
+                            ["<C-l>"] = actions.preview_scrolling_right,
+                        }
                     },
                 }
 
             })
+
+            local workspace_home = os.getenv("WORKSPACE_HOME")
+            if workspace_home ~= nil then
+                require('file_history').setup {
+                    backup_dir = workspace_home .. "/.vim/local-history",
+                    git_cmd = "git"
+                }
+                telescope.load_extension('file_history')
+
+                --  HACK: 默认 CR 行为是 open_selected, 重定向到  revert_selected
+                local fh_actions = require("file_history.actions")
+                fh_actions.open_selected_hash = fh_actions.revert_to_selected
+            end
         end
     }
 }
+

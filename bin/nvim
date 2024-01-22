@@ -6,6 +6,11 @@ export XDG_CACHE_HOME=~/.config/nvim/.cache
 export ghproxy="https://mirror.ghproxy.com/"
 export NVIM_HOME=$(dirname "$0")/..
 
+current_path=`pwd`
+if [ -d ${current_path}/.vim ]; then
+    export WORKSPACE_HOME=${current_path}
+fi
+
 # download nvim
 if [ ! -d ~/.config/nvim/core ]; then
     curl -fLo  ~/.config/nvim/neovim.tar.gz ${ghproxy}/https://github.com/neovim/neovim/releases/download/v0.9.5/nvim-linux64.tar.gz
