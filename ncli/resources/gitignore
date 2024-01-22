@@ -1,7 +1,8 @@
-.vim
-.idea
-.bloop
-.metals
+.vim/
+.idea/
+.bloop/
+.metals/
+.tmp/
 target
 node_modules
 __pycache__
