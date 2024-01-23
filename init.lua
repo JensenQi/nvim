@@ -18,5 +18,9 @@ require("lazy").setup("plugins", {
 	change_detection = {
 		notify = false,
 	},
+        git = {
+             url_format = os.getenv("ghproxy") .. "https://github.com/%s.git",
+             timeout = 300,
+        },
 })
 
