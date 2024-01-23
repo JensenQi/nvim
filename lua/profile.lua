@@ -20,6 +20,7 @@ vim.opt.tagfunc = "CocTagFunc"
 
 vim.g.mapleader = " " -- Leader Key 设置为空格
 vim.g.maplocalleader = " "
+vim.g.no_plugin_maps = 1 -- 关闭 vim 默认的 filetype plugin 快捷键映射, 避免与 aerial 插件冲突
 
 vim.cmd("command Q q")
 vim.cmd("command W w")
