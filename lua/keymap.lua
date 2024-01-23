@@ -19,6 +19,7 @@ map("n", "<Leader>l", "<cmd>BufferLineCycleNext<CR>", opt)                      
 map("n", "<Leader><left>", "<cmd>BufferLineCloseLeft<CR>", opt)                        -- 关闭左边的所有 Tab
 map("n", "<Leader><right>", "<cmd>BufferLineCloseRight<CR>", opt)                      -- 关闭右边的所有 Tab
 map("n", "<Leader><down>", "<cmd>BufferLineCloseOthers<CR>", opt)                      -- 关闭其他所有 Tab
+map("n", "<leader>v", "<CMD>ToggleBlame virtual<CR>", opt)                             -- 打开 git blame 侧栏
 
 map("n", "<esc>p", "<CMD>Telescope commander<CR>", opt)                                -- 打开终端
 map("n", "<esc>o", "<CMD>Telescope find_files<CR>", opt)                               -- 打开文件
@@ -33,6 +34,8 @@ map("n", "gu", "<Plug>(coc-references)", { silent = true })                     
 map("n", "gi", "<Plug>(coc-implementation)", { silent = true })                            -- 查看实现(Implementation)
 map("n", "gc", "<Plug>(coc-type-definition)", { silent = true })                           -- 查看类声明(class)
 map("n", "gp", '<CMD>lua _G.show_docs()<CR>', { silent = true })                           -- 文档预览(preview)
+map("n", "gv", '<CMD>Gitsigns preview_hunk_inline<CR>', { silent = true })                 -- git 变更预览
+
 map("n", "<A-n>", "<Plug>(coc-diagnostic-next)", { silent = true })                        -- 查看下一个异常(next)
 map("n", "<C-A-L>", "<Plug>(coc-format)<CR>", { silent = true })                           --格式化
 map("i", "<C-A-L>", "<cmd>CocCommand editor.action.formatDocument<CR>", { silent = true }) --格式化
@@ -53,3 +56,4 @@ map("n", "<C-F>", ":Telescope live_grep<CR>", opt)                 -- 全局关�
 
 
 map("n", "<A-r>", "<Plug>(coc-rename)", { silent = true })
+

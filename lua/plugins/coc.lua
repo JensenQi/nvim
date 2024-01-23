@@ -24,7 +24,7 @@ return {
             "coc-java", "coc-go", "coc-golines", "coc-metals",
             "coc-sh", "coc-pyright", "coc-sumneko-lua", "coc-vimlsp",
             "coc-toml", "coc-xml", "coc-yaml", "coc-json",
-            "coc-sql", "coc-docker", "coc-git", "coc-snippets", "coc-yank"
+            "coc-sql", "coc-docker", "coc-snippets", "coc-yank"
         }
     end,
     config = function()
@@ -61,3 +61,4 @@ return {
     end,
     build = "yarn install --frozen-lockfile",
 }
+
