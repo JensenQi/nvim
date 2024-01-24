@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "{name}"
+packages = [{include = "*", from="src"}]
+version = "{version}"
+description = "a project named {name}"
+authors = ["{author} <{email}>"]
+readme = "README.md"
+license = "Apache-2.0"
+
+[tool.pyright]
+include = ["src"]
+executionEnvironments = [{ root = "tests", extraPaths = ["src"] }]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+

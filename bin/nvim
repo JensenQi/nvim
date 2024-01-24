@@ -116,7 +116,7 @@ if [ ! -d ${XDG_DATA_HOME}/anaconda ]; then
     export PATH=${XDG_DATA_HOME}/anaconda/bin:$PATH
     ${PYTHONPATH}/python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
     ${PYTHONPATH}/pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-    ${PYTHONPATH}/pip install neovim typing_extensions
+    ${PYTHONPATH}/pip install neovim typing_extensions poetry
 else
     export PATH=${XDG_DATA_HOME}/anaconda/bin:$PATH
 fi
@@ -156,3 +156,4 @@ fi
 
 
 ~/.config/nvim/core/bin/nvim $@
+
