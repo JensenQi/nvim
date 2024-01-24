@@ -8,9 +8,10 @@ if __name__ == "__main__":
         'java': JavaWaiter(),
         'scala': ScalaWaiter(),
         'go': GoWaiter(),
-        'rust': RustWaiter(),
+        'rust': RustWaiter(), 'rs': RustWaiter(),
         'c': CWaiter(),
-        'cpp': CppWaiter()
+        'cpp': CppWaiter(), 'c++': CppWaiter(),
+        'python': PythonWaiter(), 'py': PythonWaiter(),
     }
     support_langs = list(waiters.keys())
 
@@ -31,3 +32,4 @@ if __name__ == "__main__":
 
     waiters[str(lang)].work()
     print("finish")
+

@@ -37,8 +37,7 @@ class Resource(object):
             os.makedirs(target_dir, exist_ok=True)
         if self.content is not None:
             with open(target_path, "w", encoding="utf8") as fp:
-                for line in self.content.split("\n"):
-                    fp.writelines(f"{line}\n")
+                fp.writelines(self.content)
 
     @staticmethod
     def copy(file_name: str):
@@ -50,3 +49,4 @@ class Resource(object):
         if not os.path.exists(target_dir):
             os.makedirs(target_dir, exist_ok=True)
         shutil.copy(self.source_path, target_path)
+

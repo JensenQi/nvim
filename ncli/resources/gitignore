@@ -3,6 +3,8 @@
 .bloop/
 .metals/
 .tmp/
+dist
 target
 node_modules
 __pycache__
+

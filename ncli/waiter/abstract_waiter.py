@@ -1,3 +1,4 @@
+import subprocess
 from filegen import *
 import sys
 import os
@@ -59,6 +60,14 @@ class AbstractWaiter(object):
         print(f"| {WARNING}{message}{END} |")
         print(line)
 
+    @staticmethod
+    def execute_output(*command):
+        try:
+            result = subprocess.run(command, stdout=subprocess.PIPE)
+            return result.stdout.decode("utf8").strip()
+        except:
+            return None
+
     def execute(self, command: str):
         os.system(f"cd {self.project_loc} && {command} >/dev/null 2>&1")
         # os.system(f"cd {self.project_loc} && {command} ")
@@ -67,14 +76,14 @@ class AbstractWaiter(object):
         os.makedirs(f"{self.project_loc}/{path}", exist_ok=True)
 
     def work(self, **kwargs):
-        default_loc = kwargs.get("default_loc") or "app"
-        loc_choice = [default_loc] + [f"{default_loc}-{i}" for i in range(1, 1000)]
+        location = kwargs.get("default_loc") or "app"
+        loc_choice = [location] + [f"{location}-{i}" for i in range(1, 1000)]
         for loc in loc_choice:
             if not os.path.exists(f"./{loc}"):
-                default_loc = loc
+                location = loc
                 break
 
-        self.project_loc = AbstractWaiter.ask("project location", default_loc)
+        self.project_loc = AbstractWaiter.ask("project location", location)
         self.mkdir(".vim")
 
         StaticResource("LICENSE").save(f"{self.project_loc}/LICENSE")
@@ -84,3 +93,4 @@ class AbstractWaiter(object):
         self.execute(f"git init --initial-branch=master")
         self.execute(f"git add LICENSE .gitignore README.md")
         self.execute(f"git commit -m 'init'")
+

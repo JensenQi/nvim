@@ -5,3 +5,5 @@ from .go_waiter import GoWaiter
 from .rust_waiter import RustWaiter
 from .c_waiter import CWaiter
 from .cpp_waiter import CppWaiter 
+from .python_waiter import PythonWaiter
+
