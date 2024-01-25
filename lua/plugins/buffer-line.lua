@@ -16,6 +16,12 @@ return {
                     buffer_close_icon = '',
                     diagnostics = "coc",
                     numbers = function(opts)
+                        local state = require("bufferline.state")
+                        for i, buf in ipairs(state.visible_components) do
+                            if buf.id == opts.id then
+                                return string.format('%s', i)
+                            end
+                        end
                         return string.format('%s', opts.raise(opts.ordinal))
                     end,
                     diagnostics_indicator = function(count, level, diagnostics_dict, context)
@@ -25,7 +31,7 @@ return {
                     offsets = {
                         {
                             filetype = "NvimTree",
-                            text = "File Explorer",
+                            text = " File Explorer",
                             text_align = "left",
                             separator = true,
                         }
@@ -39,3 +45,4 @@ return {
         end
     }
 }
+
