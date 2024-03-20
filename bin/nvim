@@ -81,6 +81,46 @@ else
     export PATH=${XDG_DATA_HOME}/node/bin:$PATH
 fi
 
+# install jdk
+mkdir -p ${XDG_DATA_HOME}/jdk
+
+# jdk21
+if [ ! -d ${XDG_DATA_HOME}/jdk/21.0.2 ]; then
+    curl -fLo  ${XDG_DATA_HOME}/jdk.tar.gz https://download.java.net/java/GA/jdk21.0.2/f2283984656d49d69e91c558476027ac/13/GPL/openjdk-21.0.2_linux-x64_bin.tar.gz
+    tar -xzf ${XDG_DATA_HOME}/jdk.tar.gz -C ${XDG_DATA_HOME}
+    mv ${XDG_DATA_HOME}/jdk-21.0.2 ${XDG_DATA_HOME}/jdk/21.0.2
+    rm ${XDG_DATA_HOME}/jdk.tar.gz
+fi
+
+# jdk17
+if [ ! -d ${XDG_DATA_HOME}/jdk/17.0.2 ]; then
+    curl -fLo  ${XDG_DATA_HOME}/jdk.tar.gz https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_linux-x64_bin.tar.gz
+    tar -xzf ${XDG_DATA_HOME}/jdk.tar.gz -C ${XDG_DATA_HOME}
+    mv ${XDG_DATA_HOME}/jdk-17.0.2 ${XDG_DATA_HOME}/jdk/17.0.2
+    rm ${XDG_DATA_HOME}/jdk.tar.gz
+fi
+
+# jdk11
+if [ ! -d ${XDG_DATA_HOME}/jdk/11.0.2 ]; then
+    curl -fLo  ${XDG_DATA_HOME}/jdk.tar.gz https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
+    tar -xzf ${XDG_DATA_HOME}/jdk.tar.gz -C ${XDG_DATA_HOME}
+    mv ${XDG_DATA_HOME}/jdk-11.0.2 ${XDG_DATA_HOME}/jdk/11.0.2
+    rm ${XDG_DATA_HOME}/jdk.tar.gz
+fi
+
+# default jdk21
+export JAVA_HOME=${XDG_DATA_HOME}/jdk/21.0.2
+export PATH=${JAVA_HOME}/bin:$PATH
+
+# install jdt.ls
+mkdir -p ${XDG_DATA_HOME}/jdt
+if [ ! -d ${XDG_DATA_HOME}/jdt/1.33.0 ]; then
+    curl -fLo  ${XDG_DATA_HOME}/jdt/jdt.tar.gz https://www.eclipse.org/downloads/download.php?file=/jdtls/milestones/1.33.0/jdt-language-server-1.33.0-202402151717.tar.gz
+    mkdir ${XDG_DATA_HOME}/jdt/1.33.0
+    tar -xzf ${XDG_DATA_HOME}/jdt/jdt.tar.gz -C ${XDG_DATA_HOME}/jdt/1.33.0
+    rm ${XDG_DATA_HOME}/jdt/jdt.tar.gz
+fi
+
 # install maven
 export M2_HOME=${XDG_DATA_HOME}/maven
 export PATH=${XDG_DATA_HOME}/maven/bin:$PATH
