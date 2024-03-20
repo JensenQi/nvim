@@ -1,4 +1,21 @@
 {
     "sumneko-lua.enableNvimLuaDev": true,
+    "java.jdt.ls.java.home": "/root/.config/nvim/share/jdk/21.0.2",
+    "java.jdt.ls.directory": "/root/.config/nvim/share/jdt/1.33.0",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-21",
+            "path": "/root/.config/nvim/share/jdk/21.0.2"
+        },
+        {
+            "name": "JavaSE-17",
+            "path": "/root/.config/nvim/share/jdk/17.0.2"
+        },
+        {
+            "name": "JavaSE-11",
+            "path": "/root/.config/nvim/share/jdk/11.0.2"
+        }
+    ],
     "codeLens.enable": true
 }
+
