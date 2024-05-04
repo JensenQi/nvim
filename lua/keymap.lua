@@ -5,6 +5,11 @@ local coc_opts = { silent = true, noremap = true, expr = true, replace_keycodes 
 map("n", "<Space>", "", opt) -- 关闭空格键的移动, 仅作为 Leader 键
 
 
+map("n", "j", "gj", opt)
+map("n", "k", "gk", opt)
+map("n", "$", "g$", opt)
+map("n", "0", "g0", opt)
+
 -- tab 切换
 map("n", "<Leader><backspace>", "<cmd>Bdelete<CR>", opt)                               -- 关闭 Tab
 map("n", "<Leader>`", "<cmd>NvimTreeFocus<CR>", opt)                                   -- 切换到文件管理 Tab
