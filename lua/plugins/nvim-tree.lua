@@ -72,7 +72,7 @@ return {
                 },
                 filters = {
                     custom = {
-                        "\\.git", "\\.vim", "\\.idea", "target", "build",
+                        "\\.git", "\\.vim", "\\.idea", "target", "build/",
                         "node_modules", "__pycache__", "\\.bloop", "\\.metals",
                         "\\.state"
                     },
