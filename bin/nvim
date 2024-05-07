@@ -109,7 +109,7 @@ if [ ! -d ${XDG_DATA_HOME}/jdk/11.0.2 ]; then
 fi
 
 # default jdk21
-export JAVA_HOME=${XDG_DATA_HOME}/jdk/21.0.2
+export JAVA_HOME=${XDG_DATA_HOME}/jdk/17.0.2
 export PATH=${JAVA_HOME}/bin:$PATH
 
 # install jdt.ls
@@ -134,6 +134,25 @@ if [ ! -d ${XDG_DATA_HOME}/maven ]; then
         cp ~/.config/nvim/lua/configurations/maven-settings.xml ~/.m2/settings.xml
     fi
 fi
+
+# install android
+export ANDROID_HOME=${XDG_DATA_HOME}/android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=${XDG_DATA_HOME}/android/cmdline-tools/bin:$PATH
+if [ ! -d ${XDG_DATA_HOME}/android ]; then
+   mkdir -p ${XDG_DATA_HOME}/android/sdk
+   wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O ${XDG_DATA_HOME}/commandlinetools.zip
+   unzip -q -d ${XDG_DATA_HOME}/android ${XDG_DATA_HOME}/commandlinetools.zip
+   rm ${XDG_DATA_HOME}/commandlinetools.zip
+   yes | sdkmanager --licenses --sdk_root=$ANDROID_HOME
+   sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" "emulator" "system-images;android-30;default;arm64-v8a" --sdk_root=$ANDROID_HOME
+   # yes | sdkmanager emulator --sdk_root=$ANDROID_HOME
+   # avdmanager -s create avd -n myAvd -k "system-images;android-30;default;arm64-v8a" --abi default/arm64-v8a
+fi
+
 
 # install coursier for scala
 export COURSIER_REPOSITORIES="https://maven.aliyun.com/repository/central|https://maven.aliyun.com/nexus/content/groups/public|https://maven.aliyun.com/nexus/content/repositories/jcenter|https://maven.aliyun.com/nexus/content/repositories/google|https://maven.aliyun.com/nexus/content/repositories/gradle-plugin|https://maven.aliyun.com/repository/spring|https://maven.aliyun.com/repository/spring-plugin|https://maven.aliyun.com/repository/grails-core|https://maven.aliyun.com/repository/apache-snapshots|https://mirrors.sjtug.sjtu.edu.cn/maven-central|https://repo.nju.edu.cn/repository/maven-public"
