@@ -24,7 +24,7 @@ map("n", "<Leader>l", "<cmd>BufferLineCycleNext<CR>", opt)                      
 map("n", "<Leader><left>", "<cmd>BufferLineCloseLeft<CR>", opt)                        -- 关闭左边的所有 Tab
 map("n", "<Leader><right>", "<cmd>BufferLineCloseRight<CR>", opt)                      -- 关闭右边的所有 Tab
 map("n", "<Leader><down>", "<cmd>BufferLineCloseOthers<CR>", opt)                      -- 关闭其他所有 Tab
-map("n", "<leader>v", "<CMD>ToggleBlame virtual<CR>", opt)                             -- 打开 git blame 侧栏
+map("n", "<leader>v", "<CMD>BlameToggle<CR>", opt)                                     -- 打开 git blame 侧栏
 
 map("n", "<esc>p", "<CMD>Telescope commander<CR>", opt)                                -- 打开终端
 map("n", "<esc>o", "<CMD>Telescope find_files<CR>", opt)                               -- 打开文件
