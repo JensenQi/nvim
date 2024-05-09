@@ -8,6 +8,17 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
 vim.api.nvim_create_autocmd("QuitPre", {
     callback = function()
+        -- 由于 auto-session 与 toggleterm 存在冲突
+        -- 当关闭 nvim 时, 如果浮动终端没有关闭，则 session 也会保存终端信息
+        -- 但保存的窗口大小是错误的，导致下次启动的时候终端窗口异常
+        -- 因此在关闭 nvim 时, 自动关闭已经打开的 toggleterm 窗口
+        local lazy = require("toggleterm.lazy")
+        local ui = lazy.require("toggleterm.ui")
+        local has_open, windows = ui.find_open_windows()
+        if has_open then
+            ui.close_and_save_terminal_view(windows)
+        end
+
         local tree_wins = {}
         local floating_wins = {}
         local wins = vim.api.nvim_list_wins()
@@ -79,7 +90,7 @@ return {
                     exclude = {},
                 },
                 update_focused_file = {
-                    enable = true, -- 跟随当前编辑文件
+                    enable = true,       -- 跟随当前编辑文件
                     update_root = false, -- 不修改根目录, 即不会切换到第三方库文件的路径
                     ignore_list = {},
                 },

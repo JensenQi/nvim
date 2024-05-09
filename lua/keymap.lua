@@ -26,9 +26,9 @@ map("n", "<Leader><right>", "<cmd>BufferLineCloseRight<CR>", opt)               
 map("n", "<Leader><down>", "<cmd>BufferLineCloseOthers<CR>", opt)                      -- 关闭其他所有 Tab
 map("n", "<leader>v", "<CMD>BlameToggle<CR>", opt)                                     -- 打开 git blame 侧栏
 
-map("n", "<esc>p", "<CMD>Telescope commander<CR>", opt)                                -- 打开终端
+map("n", "<esc>p", "<CMD>Telescope commander<CR>", opt)                                -- 打开命令面板
 map("n", "<esc>o", "<CMD>Telescope find_files<CR>", opt)                               -- 打开文件
-map("n", "<esc>h", "<CMD>Telescope file_history history initial_mode=normal<CR>", opt) -- 打开文件
+map("n", "<esc>h", "<CMD>Telescope file_history history initial_mode=normal<CR>", opt) -- 打开文件历史
 
 vim.g.coc_snippet_next = "<TAB>"
 map("i", "<TAB>", [[coc#pum#visible() ? coc#pum#confirm() : "<TAB>"]], coc_opts)

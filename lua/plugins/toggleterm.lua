@@ -5,11 +5,14 @@ return {
         version = "*",
         config = function()
             require("toggleterm").setup({
-                open_mapping = [[<c-\>]],
+                open_mapping = "<esc>\\",
+                size = 12,
                 start_in_insert = true,
+                close_on_exit = true,
                 direction = "horizontal",
                 autochdir = true
             })
         end
     }
 }
+
