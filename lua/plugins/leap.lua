@@ -5,7 +5,13 @@ return {
         version = "*",
         config = function()
             local leap = require("leap")
-            leap.create_default_mappings()
+            -- 默认会映射 gs 为 leap-from-window 操作
+            -- 这个快捷键与 alternate 插件的跳转源码操作冲突
+            -- 导致每次启动都警告 ... found conflicting mapping for ...
+            -- 因此不能使用 leap.create_default_mappings()
+            -- 而应该手动设置 s 和 S 命令，忽略默认的 gs 命令
+            vim.keymap.set({'n', 'x', 'o'}, 's',  '<Plug>(leap-forward)')
+            vim.keymap.set({'n', 'x', 'o'}, 'S',  '<Plug>(leap-backward)')
 
             vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
             vim.api.nvim_set_hl(0, 'LeapMatch', { fg = 'white', bold = true, nocombine = true, })
