@@ -90,9 +90,18 @@ return {
                     exclude = {},
                 },
                 update_focused_file = {
-                    enable = true,       -- 跟随当前编辑文件
-                    update_root = false, -- 不修改根目录, 即不会切换到第三方库文件的路径
-                    ignore_list = {},
+                    enable = true,           -- 跟随当前编辑文件
+                    ignore_list = {
+                        update_root = false, -- 不修改根目录, 即不会切换到第三方库文件的路径
+                    },
+                    exclude = function(event)
+                        local full_path = vim.api.nvim_buf_get_name(event.buf)
+                        if string.find(full_path, "/3rdparty/") then
+                            return true
+                        else
+                            return false
+                        end
+                    end
                 },
             })
         end
