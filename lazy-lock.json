@@ -33,6 +33,7 @@
   "todo-comments.nvim": { "branch": "main", "commit": "a7e39ae9e74f2c8c6dc4eea6d40c3971ae84752d" },
   "toggleterm.nvim": { "branch": "main", "commit": "066cccf48a43553a80a210eb3be89a15d789d6e6" },
   "vim-expand-region": { "branch": "master", "commit": "31db83cd9dfc12fad0ab6a32f3ecdf106e8756c4" },
+  "vim-matchup": { "branch": "master", "commit": "d30b72d20f01478a8486f15a57c89fe3177373db" },
   "vim-snippets": { "branch": "master", "commit": "393d980157b8149b3ff65a48bc4aae24dca9c846" },
   "vim-startuptime": { "branch": "master", "commit": "97a88e688482a09c3c4b777d07b509b328a5ec29" },
   "wilder.nvim": { "branch": "master", "commit": "679f348dc90d80ff9ba0e7c470c40a4d038dcecf" }
