@@ -9,7 +9,7 @@ return {
                     lualine_a = { 'mode' },
                     lualine_b = { 'branch', 'diff', 'diagnostics' },
                     lualine_c = { 'b:gitsigns_blame_line'},
-                    lualine_x = { 'g:coc_status','encoding', 'filetype' },
+                    lualine_x = { 'encoding', 'filetype' },
                     lualine_y = { 'progress' },
                     lualine_z = { 'location' }
                 },

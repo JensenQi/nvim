@@ -1,10 +1,7 @@
 local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
-local coc_opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
 
 map("n", "<Space>", "", opt) -- 关闭空格键的移动, 仅作为 Leader 键
-
-
 map("n", "j", "gj", opt)
 map("n", "k", "gk", opt)
 map("n", "$", "g$", opt)
@@ -30,24 +27,21 @@ map("n", "<esc>p", "<CMD>Telescope commander<CR>", opt)                         
 map("n", "<esc>o", "<CMD>Telescope find_files<CR>", opt)                               -- 打开文件
 map("n", "<esc>h", "<CMD>Telescope file_history history initial_mode=normal<CR>", opt) -- 打开文件历史
 
-vim.g.coc_snippet_next = "<TAB>"
-map("i", "<TAB>", [[coc#pum#visible() ? coc#pum#confirm() : "<TAB>"]], coc_opts)
-map("i", "<CR>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], coc_opts)
-map("n", "gd", "<C-]>", { silent = true })                                                 -- 跳入定义 define
-map("n", "gb", "<C-t>", {})                                                                -- 回退 back
-map("n", "gu", "<Plug>(coc-references)", { silent = true })                                -- 查看引用(use)
-map("n", "gi", "<Plug>(coc-implementation)", { silent = true })                            -- 查看实现(Implementation)
-map("n", "gc", "<Plug>(coc-type-definition)", { silent = true })                           -- 查看类声明(class)
-map("n", "gp", '<CMD>lua _G.show_docs()<CR>', { silent = true })                           -- 文档预览(preview)
+vim.keymap.set('n', '<A-n>', vim.diagnostic.goto_next, opt)
+map('n', 'gd', '<CMD>Lspsaga goto_definition<CR>', opt)
+map("n", "gb", "<C-t>", opt)
+map('n', 'gc', '<CMD>Lspsaga goto_type_definition<CR>', opt)
+map('n', 'gp', '<CMD>Lspsaga peek_definition<CR>', opt)
+map('n', 'gu', '<CMD>Lspsaga finder<CR>', opt)
+map('n', 'gi', '<CMD>Lspsaga finder imp<CR>', opt)
+map('n', '<A-Enter>', "<CMD>Lspsaga code_action<CR>", opt)
+map('n', '<s-F6>', "<CMD>Lspsaga rename<CR>", opt)
+
+vim.keymap.set("n", "<C-A-L>", function() vim.lsp.buf.format({ async = true }) end, opt)
+vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opt)
+vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opt)
+
 map("n", "gv", '<CMD>Gitsigns preview_hunk_inline<CR>', { silent = true })                 -- git 变更预览
-
-map("n", "<A-n>", "<Plug>(coc-diagnostic-next)", { silent = true })                        -- 查看下一个异常(next)
-map("n", "<C-A-L>", "<Plug>(coc-format)<CR>", { silent = true })                           --格式化
-map("i", "<C-A-L>", "<cmd>CocCommand editor.action.formatDocument<CR>", { silent = true }) --格式化
-map("n", "<A-Enter>", "<Plug>(coc-codeaction-cursor)", opt)                                -- 修复建议
-map("i", "<A-Enter>", "<C-o><Plug>(coc-codeaction-cursor)", opt)
-
-map("n", "P", "<cmd>CocList -A --normal yank<cr>", opt)
 
 map("n", "<C-_>", "<Plug>(comment_toggle_linewise_current)j", opt) -- 快速注释当前行并移动到下一行
 map("v", "<C-_>", "<Plug>(comment_toggle_linewise_visual)", opt)   -- 快速注释选中块
@@ -59,6 +53,5 @@ map('n', '<C-e>', '<C-w>w', opt)                                   -- File Explo
 map("n", "<A-f>", "/", opt)                                        -- 页面内关键词查找
 map("n", "<C-F>", ":Telescope live_grep<CR>", opt)                 -- 全局关键词查找
 
-
-map("n", "<A-r>", "<Plug>(coc-rename)", { silent = true })
+map("n", "qq", '<CMD>wqall<CR>', opt)
 

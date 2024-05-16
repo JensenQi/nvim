@@ -14,7 +14,7 @@ return {
                     close_if_last_window = false,
                     separator_style = "slant",
                     buffer_close_icon = '',
-                    diagnostics = "coc",
+                    diagnostics = "nvim_lsp",
                     numbers = function(opts)
                         local state = require("bufferline.state")
                         for i, buf in ipairs(state.visible_components) do

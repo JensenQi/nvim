@@ -10,6 +10,18 @@ return {
 
         config = function()
             require("aerial").setup({
+                backends = { "lsp", "treesitter", "markdown", "asciidoc", "man" },
+                layout = { min_width = 30, },
+
+                filter_kind = false, -- display all kile
+                show_guides = true,
+                guides = {
+                    mid_item = "┣━",
+                    last_item = "┗━",
+                    nested_top = "┃ ",
+                    whitespace = "  ",
+                },
+
                 -- optionally use on_attach to set keymaps when aerial has attached to a buffer
                 on_attach = function(bufnr)
                     -- Jump forwards/backwards with '{' and '}'
@@ -24,7 +36,8 @@ return {
                 },
                 close_on_select = true
             })
-            vim.keymap.set("n", "<leader>[]", "<cmd>AerialToggle<CR>")
+            vim.keymap.set("n", "<esc>[]", "<cmd>AerialToggle<CR>")
         end
     }
 }
+

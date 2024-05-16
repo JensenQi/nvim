@@ -11,7 +11,7 @@ return {
                 -- number-less fold indicator, then signs, then line number & separator
                 segments = {
                     { text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
-                    { text = { '%s' },             click = 'v:lua.ScSa' },
+                    -- { text = { '%s' },             click = 'v:lua.ScSa' },
                     {
                         text = { builtin.lnumfunc, ' ' },
                         condition = { true, builtin.not_empty },
@@ -22,4 +22,5 @@ return {
         end,
     }
 }
+
 

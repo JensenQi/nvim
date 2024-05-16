@@ -7,7 +7,6 @@
 * [nvim-autopairs](https://github.com/windwp/nvim-autopairs): 括号自动补全
 * [bufferline](https://github.com/akinsho/bufferline.nvim.git): tab 页管理
 * [catppuccin](https://github.com/catppuccin/nvim.git): UI 主题风格
-* [coc.nvim](https://github.com/neoclide/coc.nvim.git): 自动补全
 * [vim-snippets](https://github.com/honza/vim-snippets.git): 代码片段
 * [commander.nvim](https://github.com/FeiyouG/commander.nvim.git): 快捷命令管理
 * [Comment.nvim](https://github.com/numToStr/Comment.nvim.git): 快捷注释

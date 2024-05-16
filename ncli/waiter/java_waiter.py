@@ -45,6 +45,3 @@ class JavaWaiter(AbstractWaiter):
             .save(f"{self.project_loc}/src/main/resources/log4j.properties") \
             .save(f"{self.project_loc}/src/test/resources/log4j.properties") \
 
-        NewResource(json.dumps({
-            "java.compile.nullAnalysis.mode": "automatic"
-        })).save(f"{self.project_loc}/.vim/coc-settings.json")

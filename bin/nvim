@@ -70,7 +70,6 @@ if [ ! -d ${XDG_DATA_HOME}/node ]; then
     rm ${XDG_DATA_HOME}/node.tar.xz
     export PATH=${XDG_DATA_HOME}/node/bin:$PATH
     npm config set registry http://registry.npmmirror.com
-    npm config set coc.nvim:registry http://registry.npmmirror.com
     npm install -g yarn
     npm install -g neovim
     npm install -g tree-sitter

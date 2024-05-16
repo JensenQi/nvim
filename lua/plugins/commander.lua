@@ -88,8 +88,7 @@ return {
                         local working_dir = vim.loop.cwd()
 
                         if vim.fn.empty(vim.fn.glob(working_dir .. "/pom.xml")) == 0 then
-                            vim.cmd("CocCommand java.project.build")
-                            -- execute("mvn clean build")
+                            execute("mvn clean build")
                         elseif vim.fn.empty(vim.fn.glob(working_dir .. "/CMakeLists.txt")) == 0 then
                             execute('cmake -S . -B build && cmake --build build')
                         elseif vim.fn.empty(vim.fn.glob(working_dir .. "/Cargo.toml")) == 0 then

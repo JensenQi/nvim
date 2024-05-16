@@ -19,6 +19,9 @@ vim.api.nvim_create_autocmd("QuitPre", {
             ui.close_and_save_terminal_view(windows)
         end
 
+        -- 关闭大纲
+        vim.cmd('AerialClose')
+
         local tree_wins = {}
         local floating_wins = {}
         local wins = vim.api.nvim_list_wins()
