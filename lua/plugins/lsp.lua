@@ -7,6 +7,7 @@ return {
             os.getenv("ghproxy") .. "https://github.com/williamboman/mason-lspconfig.nvim.git",
             os.getenv("ghproxy") .. "https://github.com/neovim/nvim-lspconfig.git",
             os.getenv("ghproxy") .. "https://github.com/mfussenegger/nvim-jdtls.git",
+            os.getenv("ghproxy") .. "https://github.com/scalameta/nvim-metals.git",
         },
         config = function()
             require('mason').setup({
@@ -25,7 +26,7 @@ return {
                 ensure_installed = {
                     'pyright', 'jdtls', 'clangd', 'rust_analyzer',
                     'tsserver', 'vuels', 'eslint', 'lua_ls',
-                    'html', 'cssls', 'eslint', 'gopls', -- 'metals',
+                    'html', 'cssls', 'eslint', 'gopls',
                     'bashls', 'jsonls', 'lemminx'
                 },
             })
@@ -74,11 +75,21 @@ return {
                 -- 这里注册一下事件
                 -- 另一种做法是把 jdtls 放到 ftplugin/java.lua 中
                 vim.api.nvim_create_autocmd("FileType", {
+                    pattern = "java",
                     callback = function()
-                        if vim.bo.filetype == 'java' then
-                            require('jdtls').start_or_attach(config)
-                        end
+                        require('jdtls').start_or_attach(config)
                     end
+                })
+            elseif _G.PROJECT_TYPE == "scala" then
+                local metals_config = require("metals").bare_config()
+                metals_config.init_options.statusBarProvider = "on"
+                local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+                vim.api.nvim_create_autocmd("FileType", {
+                    pattern = { "scala", "sbt", "java" },
+                    callback = function()
+                        require("metals").initialize_or_attach(metals_config)
+                    end,
+                    group = nvim_metals_group,
                 })
             end
         end
