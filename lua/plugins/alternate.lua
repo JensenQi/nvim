@@ -1,7 +1,8 @@
 -- 关联文件跳转
+local keymap = require("keymap")
 
 -- 单元测试跳转
-vim.keymap.set("n", "gt", function()
+keymap.map2fun("n", keymap.goto_test_file, function()
     vim.g.telescope_alternate_mappings = {
         { 'src/main/java/(.*)/(.*).java', { { 'src/test/java/[1]/[2]Test.java' } } }, -- java
         { 'src/main/scala/(.*)/(.*).scala', { { 'src/test/scala/[1]/[2]Suite.scala' } } }, -- scala
@@ -14,10 +15,10 @@ vim.keymap.set("n", "gt", function()
         { 'include(.*)/(.*).h',         { { 'test[1]/test_[2].c' } } },
     }
     vim.cmd("Telescope telescope-alternate alternate_file")
-end, { noremap = true })
+end)
 
 -- 源文件跳转
-vim.keymap.set("n", "gs", function()
+keymap.map2fun("n", keymap.goto_source_file, function()
     vim.g.telescope_alternate_mappings = {
         { 'src/test/java/(.*)/(.*)Test.java', { { 'src/main/java/[1]/[2].java' } } }, -- java
         { 'src/test/scala/(.*)/(.*)Suite.scala', { { 'src/main/scala/[1]/[2].scala' } } }, -- scala
@@ -30,10 +31,10 @@ vim.keymap.set("n", "gs", function()
         { 'include(.*)/(.*).h',             { { 'src[1]/[2].c' } } },
     }
     vim.cmd("Telescope telescope-alternate alternate_file")
-end, { noremap = true })
+end)
 
 -- 头文件跳转
-vim.keymap.set("n", "gh", function()
+keymap.map2fun("n", keymap.goto_header_file, function()
     vim.g.telescope_alternate_mappings = {
         -- cpp
         { 'src(.*)/(.*).cpp',       { { 'include[1]/[2].hpp' }, } },
@@ -43,17 +44,21 @@ vim.keymap.set("n", "gh", function()
         { 'test(.*)/test_(.*).c', { { 'include[1]/[2].h' } } },
     }
     vim.cmd("Telescope telescope-alternate alternate_file")
-end, { noremap = true })
+end)
 
 return {
     {
         os.getenv("ghproxy") .. "https://github.com/otavioschwanck/telescope-alternate.nvim.git",
         version = "*",
+        dependencies = {
+            os.getenv("ghproxy") .. "https://github.com/nvim-telescope/telescope.nvim.git",
+        },
         config = function()
             require('telescope-alternate').setup({
                 mappings = {}, -- 延迟到 gt, gh, gs 等命令执行的时候再注入
                 open_only_one_with = 'current_pane',
             })
+            require("telescope").load_extension('telescope-alternate')
         end
     }
 }

@@ -1,4 +1,6 @@
 -- 书签插件
+local keymap = require("keymap")
+
 return {
     {
         os.getenv("ghproxy") .. "https://github.com/tomasky/bookmarks.nvim.git",
@@ -22,11 +24,10 @@ return {
                     ["@f"] = "󰣪 ", -- mark annotation startswith @f ,signs this icon as `Fix`
                 },
                 on_attach = function(_)
-                    local map = vim.keymap.set
-                    map("n", "mm", bm.bookmark_toggle) -- add or remove bookmark at current line
-                    map("n", "mi", bm.bookmark_ann)    -- add or edit mark annotation at current line
-                    map("n", "dm", bm.bookmark_clean)  -- clean all marks in local buffer
-                    map("n", "<esc>m", '<CMD>Telescope bookmarks list initial_mode=normal<CR>')
+                    keymap.map2fun("n", keymap.add_or_remove_bookmark, bm.bookmark_toggle) -- add or remove bookmark at current line
+                    keymap.map2fun("n", keymap.edit_bookmark, bm.bookmark_ann)    -- add or edit mark annotation at current line
+                    keymap.map2fun("n", keymap.remove_curr_buf_bookmark, bm.bookmark_clean)  -- clean all marks in local buffer
+                    keymap.map2fun("n", keymap.list_all_bookmarks, '<CMD>Telescope bookmarks list initial_mode=normal<CR>')
 
                     -- 删除所有 bookmarks 不绑定快捷键，避免手滑导致删除, 而是新建一个 vim 命令
                     vim.api.nvim_create_user_command( 'CleanAllBookmark', function ()
@@ -53,6 +54,8 @@ return {
                     end))
                 end
             }
+
+            require("telescope").load_extension('bookmarks')
         end
     }
 }

@@ -1,4 +1,7 @@
 -- 快捷命令插件
+local keymap = require("keymap")
+keymap.map2cmd("n", keymap.open_commander, "<CMD>Telescope commander<CR>")
+
 local function execute(command)
     local terminal = require("toggleterm")
     terminal.exec_command("cmd='" .. command .. "'")
@@ -83,7 +86,7 @@ return {
             commander.add({
                 {
                     desc = " Build",
-                    keys = { { "n", "<F8>" }, { "i", "<F8>" } },
+                    keys = { { "n", keymap.exec_build_command }, { "i", keymap.exec_build_command } },
                     cmd = function()
                         local working_dir = vim.loop.cwd()
 
@@ -99,7 +102,7 @@ return {
 
                 {
                     desc = " Run",
-                    keys = { { "n", "<F5>" }, { "i", "<F5>" } },
+                    keys = { { "n", keymap.exec_run_command }, { "i", keymap.exec_run_command } },
                     cmd = function()
                         local working_dir = vim.loop.cwd()
                         local filepath = vim.api.nvim_buf_get_name(0)
@@ -119,7 +122,7 @@ return {
                 },
                 {
                     desc = " Release Package",
-                    keys = { { "n", "<F10>" }, { "i", "<F10>" } },
+                    keys = { { "n", keymap.exec_release_command }, { "i", keymap.exec_release_command } },
                     cmd = function()
                         local working_dir = vim.loop.cwd()
 

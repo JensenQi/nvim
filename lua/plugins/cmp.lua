@@ -1,3 +1,6 @@
+-- 自动补全插件
+local keymap = require("keymap")
+
 return {
     {
         os.getenv("ghproxy") .. "https://github.com/hrsh7th/nvim-cmp.git",
@@ -19,7 +22,7 @@ return {
             vim.api.nvim_set_hl(0, 'CmpItemKindCodeium', { bg='NONE', fg='#60D5C4'  })
 
             local cmp = require("cmp")
-            vim.keymap.set("i", "<A-enter>", function() cmp.complete() end, {})
+            keymap.map2fun("i", keymap.code_complete, function() cmp.complete() end)
 
             local lspkind = require('lspkind')
             cmp.setup({
@@ -29,7 +32,7 @@ return {
                 },
                 snippet = { expand = function(args) require('luasnip').lsp_expand(args.body) end },
                 mapping = cmp.mapping.preset.insert({
-                    ['<TAB>'] = cmp.mapping(function (fallback)
+                    [keymap.complete_confirm_or_jump_next_slot] = cmp.mapping(function (fallback)
                         if cmp.visible() then
                             cmp.confirm({select = true})
                         elseif luasnip.locally_jumpable(1) then
@@ -39,7 +42,7 @@ return {
                         end
                     end, { "i", "s" }),
 
-                    ['<CR>'] = cmp.mapping(function (fallback)
+                    [keymap.complete_confirm] = cmp.mapping(function (fallback)
                         if cmp.visible() then
                             cmp.confirm({select = true})
                         else

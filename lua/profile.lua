@@ -7,13 +7,9 @@ vim.opt.shiftwidth = 4         -- 换行缩进 4 个空格
 vim.opt.autoindent = true      -- 自动缩进
 vim.opt.expandtab = true       -- 用空格替换 tab
 vim.opt.cursorline = true      -- 光标行高亮
-vim.opt.timeoutlen = 400       -- leader & esc 等待延迟时长(ms)
 -- vim.opt.cmdheight = 0          -- 隐藏命令行
 
 vim.opt.termguicolors = true
-
-vim.g.mapleader = " "    -- Leader Key 设置为空格
-vim.g.maplocalleader = " "
 vim.g.no_plugin_maps = 1 -- 关闭 vim 默认的 filetype plugin 快捷键映射, 避免与 aerial 插件冲突
 
 vim.cmd("command Q q")

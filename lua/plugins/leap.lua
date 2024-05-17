@@ -1,4 +1,5 @@
 -- 页面内快速跳转插件
+local keymap = require('keymap')
 return {
     {
         os.getenv("ghproxy") .. "https://github.com/ggandor/leap.nvim.git",
@@ -10,8 +11,8 @@ return {
             -- 导致每次启动都警告 ... found conflicting mapping for ...
             -- 因此不能使用 leap.create_default_mappings()
             -- 而应该手动设置 s 和 S 命令，忽略默认的 gs 命令
-            vim.keymap.set({'n', 'x', 'o'}, 's',  '<Plug>(leap-forward)')
-            vim.keymap.set({'n', 'x', 'o'}, 'S',  '<Plug>(leap-backward)')
+            keymap.map2fun({'n', 'x', 'o'}, keymap.leap_jump_forward,  '<Plug>(leap-forward)')
+            keymap.map2fun({'n', 'x', 'o'}, keymap.leap_jump_backward,  '<Plug>(leap-backward)')
 
             vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
             vim.api.nvim_set_hl(0, 'LeapMatch', { fg = 'white', bold = true, nocombine = true, })
@@ -35,7 +36,7 @@ return {
             })
 
             -- highlight 2 chars of phase2 text
-            function highlight_second_char(targets, first_idx, last_idx)
+            local function highlight_second_char(targets, first_idx, last_idx)
                 local hl = require('leap.highlight')
                 for i = first_idx or 1, last_idx or #targets do
                     local target = targets[i]

@@ -75,11 +75,6 @@ return {
                 -- 另一种做法是把 jdtls 放到 ftplugin/java.lua 中
                 vim.api.nvim_create_autocmd("FileType", {
                     callback = function()
-                        -- local cfg = {
-                        --     cmd = {_G.NVIM_HOME .. '/share/jdt/1.33.0/bin/jdtls'},
-                        --     root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
-                        -- }
-                        -- require('jdtls').start_or_attach(cfg)
                         if vim.bo.filetype == 'java' then
                             require('jdtls').start_or_attach(config)
                         end

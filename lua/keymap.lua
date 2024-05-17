@@ -1,57 +1,127 @@
-local map = vim.api.nvim_set_keymap
-local opt = { noremap = true, silent = true }
+local M = {
+    goto_file_explorer = "<Leader>`",          -- 跳转到文件管理器
+    goto_tab1 = "<Leader>1",                   -- 跳转到编号为 1 的 Tab 页
+    goto_tab2 = "<Leader>2",                   -- 跳转到编号为 2 的 Tab 页
+    goto_tab3 = "<Leader>3",                   -- 跳转到编号为 3 的 Tab 页
+    goto_tab4 = "<Leader>4",                   -- 跳转到编号为 4 的 Tab 页
+    goto_tab5 = "<Leader>5",                   -- 跳转到编号为 5 的 Tab 页
+    goto_tab6 = "<Leader>6",                   -- 跳转到编号为 6 的 Tab 页
+    goto_left_tab = "<Leader>h",               -- 跳转到左边的 Tab 页
+    goto_right_tab = "<Leader>l",              -- 跳转到右边 Tab 页
 
-map("n", "<Space>", "", opt) -- 关闭空格键的移动, 仅作为 Leader 键
-map("n", "j", "gj", opt)
-map("n", "k", "gk", opt)
-map("n", "$", "g$", opt)
-map("n", "0", "g0", opt)
+    close_current_tab = "<Leader><backspace>", -- 关闭当前 Tab 页
+    close_other_tab = "<Leader><down>",        -- 关闭其他 Tab 页
+    close_left_tab = "<Leader><left>",         -- 关闭左侧 Tab 页
+    close_right_tab = "<Leader><right>",       -- 关闭右侧 Tab 页
 
--- tab 切换
-map("n", "<Leader><backspace>", "<cmd>Bdelete<CR>", opt)                               -- 关闭 Tab
-map("n", "<Leader>`", "<cmd>NvimTreeFocus<CR>", opt)                                   -- 切换到文件管理 Tab
-map("n", "<Leader>1", "<cmd>BufferLineGoToBuffer 1<CR>", opt)                          -- 切换到第一个 Tab
-map("n", "<Leader>2", "<cmd>BufferLineGoToBuffer 2<CR>", opt)                          -- 切换到第二个 Tab
-map("n", "<Leader>3", "<cmd>BufferLineGoToBuffer 3<CR>", opt)                          -- 切换到第三个 Tab
-map("n", "<Leader>4", "<cmd>BufferLineGoToBuffer 4<CR>", opt)                          -- 切换到第四个 Tab
-map("n", "<Leader>5", "<cmd>BufferLineGoToBuffer 5<CR>", opt)                          -- 切换到第五个 Tab
-map("n", "<Leader>6", "<cmd>BufferLineGoToBuffer 6<CR>", opt)                          -- 切换到第六个 Tab
-map("n", "<Leader>h", "<cmd>BufferLineCyclePrev<CR>", opt)                             -- 切换到上一个 Tab
-map("n", "<Leader>l", "<cmd>BufferLineCycleNext<CR>", opt)                             -- 切换到下一个 Tab
-map("n", "<Leader><left>", "<cmd>BufferLineCloseLeft<CR>", opt)                        -- 关闭左边的所有 Tab
-map("n", "<Leader><right>", "<cmd>BufferLineCloseRight<CR>", opt)                      -- 关闭右边的所有 Tab
-map("n", "<Leader><down>", "<cmd>BufferLineCloseOthers<CR>", opt)                      -- 关闭其他所有 Tab
-map("n", "<leader>v", "<CMD>BlameToggle<CR>", opt)                                     -- 打开 git blame 侧栏
+    word_highlight = "<Leader>f",
+    word_cancel_highlight = "<Leader>F",
 
-map("n", "<esc>p", "<CMD>Telescope commander<CR>", opt)                                -- 打开命令面板
-map("n", "<esc>o", "<CMD>Telescope find_files<CR>", opt)                               -- 打开文件
-map("n", "<esc>h", "<CMD>Telescope file_history history initial_mode=normal<CR>", opt) -- 打开文件历史
+    open_git_blame = "<esc>v",  -- 打开 git blame 面板
+    open_todo = "<esc>t", -- 打开 todo 列表
+    open_terminal = "<esc>\\",
 
-vim.keymap.set('n', '<A-n>', vim.diagnostic.goto_next, opt)
-map('n', 'gd', '<CMD>Lspsaga goto_definition<CR>', opt)
-map("n", "gb", "<C-t>", opt)
-map('n', 'gc', '<CMD>Lspsaga goto_type_definition<CR>', opt)
-map('n', 'gp', '<CMD>Lspsaga peek_definition<CR>', opt)
-map('n', 'gu', '<CMD>Lspsaga finder<CR>', opt)
-map('n', 'gi', '<CMD>Lspsaga finder imp<CR>', opt)
-map('n', '<A-Enter>', "<CMD>Lspsaga code_action<CR>", opt)
-map('n', '<s-F6>', "<CMD>Lspsaga rename<CR>", opt)
+    open_commander = "<esc>p", -- 打开自定义快捷命令面板
+    exec_run_command = "<F5>", -- 执行项目 Run 命令
+    exec_build_command = "<F6>", -- 执行项目 Build 命令
+    exec_release_command = "<F10>", -- 执行项目打包命令
 
-vim.keymap.set("n", "<C-A-L>", function() vim.lsp.buf.format({ async = true }) end, opt)
-vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opt)
-vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opt)
+    find_file = "<esc>o", -- 查找文件
+    find_file_hisotry = "<esc>h", -- 查看文件本地变更历史
+    find_string = "<C-F>", -- 全局搜索字符串
 
-map("n", "gv", '<CMD>Gitsigns preview_hunk_inline<CR>', { silent = true })                 -- git 变更预览
+    goto_next_problem =  '<A-n>', -- 跳转到当前文件中下一个代码有问题的地方
+    goto_definition =  'gd', -- 跳转到函数或变量定义的地方
+    go_back = "gb", -- 跳回跳转前的地方
+    goto_class_definition = 'gc', -- 跳转到类定义的地方
 
-map("n", "<C-_>", "<Plug>(comment_toggle_linewise_current)j", opt) -- 快速注释当前行并移动到下一行
-map("v", "<C-_>", "<Plug>(comment_toggle_linewise_visual)", opt)   -- 快速注释选中块
+    goto_preview = 'gp', -- 显示函数预览
+    close_preview = "<esc><esc>",
 
-map("v", "v", "<Plug>(expand_region_expand)", opt)                 -- 扩大选择块
-map("v", "V", "<Plug>(expand_region_shrink)", opt)                 -- 缩小s选择块
+    find_usage = "gu", -- 查看函数或变量的引用
+    usage_jump = "<CR>",
+    usage_edit = "<Tab>",
+    close_find_usage = "<esc><esc>",
 
-map('n', '<C-e>', '<C-w>w', opt)                                   -- File Explorer 与 Editor 切换
-map("n", "<A-f>", "/", opt)                                        -- 页面内关键词查找
-map("n", "<C-F>", ":Telescope live_grep<CR>", opt)                 -- 全局关键词查找
+    find_implement = "gi", -- 查看接口的继承
+    code_action = "<A-Enter>", -- 列举修复建议
+    close_code_action = "<esc><esc>",
+    code_action_confirm = "<CR>",
+    code_complete = "<A-Enter>", -- [normal] 列举自动补全项
+    complete_confirm_or_jump_next_slot = "<Tab>",
+    complete_confirm = "<CR>",
+    refactor_name = '<s-F6>', -- [insert]变量或函数重命名
+    refactor_confirm = "<CR>",
+    close_refactor = "<esc><esc>",
 
-map("n", "qq", '<CMD>wqall<CR>', opt)
+    format_file = "<C-A-L>", -- 格式化文件
+    goto_test_file = "gt",
+    goto_source_file = "gs",
+    goto_header_file = "gh",
+    goto_vsc_diff = "gv",  -- git 变更预览
+
+    comment_current_line = "<C-_>", -- 注释当前行，并将光标移动到下一行
+    comment_block = "<C-_>", -- 注释当前选中块
+
+    increase_vis_block = "v", -- 扩大当前选中块
+    decrease_vis_block = "V", -- 缩小当前选中块
+
+    switch_file_explorer_and_editor = '<C-e>',
+    file_explorer_preview = '<Tab>',
+    file_explorer_edit = '<CR>',
+    file_explorer_close_parent_dir = 'zc',
+    file_explorer_close_all_dir = 'xx',
+    file_explorer_create = 'nn',
+    file_explorer_goto_parent = 'gg',
+    file_explorer_rename = 'rr',
+    file_explorer_remove = 'DD',
+    file_explorer_trash = 'dd',
+    file_explorer_copy = 'yy',
+    file_explorer_cut = 'cc',
+    file_explorer_paste = 'p',
+    file_explorer_show_info = '?',
+    file_explorer_reload = 'R',
+
+    open_outline = '<esc>[]',
+    close_outline = '<esc><esc>',
+    outline_goto_next_line = 'j',
+    outline_goto_prev_line = 'k',
+    goto_prev_object = '[',
+    goto_next_object = ']',
+
+    add_or_remove_bookmark = "mm",
+    edit_bookmark = "mi",
+    remove_curr_buf_bookmark = "dm",
+    list_all_bookmarks = "<esc>m",
+
+    leap_jump_forward = "s",
+    leap_jump_backward = "S",
+}
+
+function M.map2fun(mode, key, fun, opt)
+    opt = opt or { noremap = true, silent = true }
+    vim.keymap.set(mode, key, fun, opt)
+end
+
+function M.map2cmd(mode, key, cmd, opt)
+    opt = opt or { noremap = true, silent = true }
+    vim.api.nvim_set_keymap(mode, key, cmd, opt)
+end
+
+function M.init()
+
+    vim.g.mapleader = " "    -- Leader Key 设置为空格
+    vim.g.maplocalleader = " "
+    vim.opt.timeoutlen = 400       -- leader & esc 等待延迟时长(ms)
+    M.map2cmd("n", "<Space>", "") -- 关闭空格键的移动, 仅作为 Leader 键
+
+    M.map2cmd("n", "j", "gj")
+    M.map2cmd("n", "k", "gk")
+    M.map2cmd("n", "$", "g$")
+    M.map2cmd("n", "0", "g0")
+    M.map2cmd("n", "qq", '<CMD>wqall<CR>')
+
+end
+
+return M
 

@@ -12,15 +12,15 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("profile")
-require("keymap")
+require("keymap").init()
 
 require("lazy").setup("plugins", {
-	change_detection = {
-		notify = false,
-	},
-        git = {
-             url_format = os.getenv("ghproxy") .. "https://github.com/%s.git",
-             timeout = 300,
-        },
+    change_detection = {
+        notify = false,
+    },
+    git = {
+        url_format = os.getenv("ghproxy") .. "https://github.com/%s.git",
+        timeout = 300,
+    },
 })
 

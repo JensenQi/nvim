@@ -1,4 +1,7 @@
 -- 文件树插件
+local keymap = require("keymap")
+keymap.map2cmd('n', keymap.switch_file_explorer_and_editor, '<C-w>w')
+
 vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
         local api = require("nvim-tree.api")
@@ -8,20 +11,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
 vim.api.nvim_create_autocmd("QuitPre", {
     callback = function()
-        -- 由于 auto-session 与 toggleterm 存在冲突
-        -- 当关闭 nvim 时, 如果浮动终端没有关闭，则 session 也会保存终端信息
-        -- 但保存的窗口大小是错误的，导致下次启动的时候终端窗口异常
-        -- 因此在关闭 nvim 时, 自动关闭已经打开的 toggleterm 窗口
-        local lazy = require("toggleterm.lazy")
-        local ui = lazy.require("toggleterm.ui")
-        local has_open, windows = ui.find_open_windows()
-        if has_open then
-            ui.close_and_save_terminal_view(windows)
-        end
-
-        -- 关闭大纲
-        vim.cmd('AerialClose')
-
         local tree_wins = {}
         local floating_wins = {}
         local wins = vim.api.nvim_list_wins()
@@ -34,11 +23,13 @@ vim.api.nvim_create_autocmd("QuitPre", {
                 table.insert(floating_wins, w)
             end
         end
+
         if 1 == #wins - #floating_wins - #tree_wins then
             for _, w in ipairs(tree_wins) do
                 vim.api.nvim_win_close(w, true)
             end
         end
+
     end
 })
 
@@ -61,22 +52,20 @@ return {
                 end
 
                 -- custom mapping
-                vim.keymap.set('n', '<Tab>', api.node.open.preview, opts("Preview"))
-                vim.keymap.set('n', 'o', api.node.open.preview, opts("expand"))
-                vim.keymap.set('n', '<CR>', api.node.open.edit, opts("Edit"))
-                vim.keymap.set('n', 'zc', api.node.navigate.parent_close, opts("Close parent dir"))
-                vim.keymap.set('n', 'xx', api.tree.collapse_all, opts("collapse all"))
-                vim.keymap.set('n', 'ZZ', api.tree.change_root_to_node, opts("set dir as root"))
-                vim.keymap.set('n', 'nn', api.fs.create, opts('Create'))
-                vim.keymap.set('n', 'gg', api.node.navigate.parent, opts('go to parent'))
-                vim.keymap.set('n', 'rr', api.fs.rename, opts('Rename'))
-                vim.keymap.set('n', 'DD', api.fs.remove, opts('Remove'))
-                vim.keymap.set('n', 'dd', api.fs.trash, opts('Trash'))
-                vim.keymap.set('n', 'yy', api.fs.copy.node, opts('copy'))
-                vim.keymap.set('n', 'cc', api.fs.cut, opts('cut'))
-                vim.keymap.set('n', 'p', api.fs.paste, opts('paste'))
-                vim.keymap.set('n', '?', api.node.show_info_popup, opts('File Infomation'))
-                vim.keymap.set('n', 'R', api.tree.reload, opts('Reload'))
+                vim.keymap.set('n', keymap.file_explorer_preview, api.node.open.preview, opts("Preview"))
+                vim.keymap.set('n', keymap.file_explorer_edit, api.node.open.edit, opts("Edit"))
+                vim.keymap.set('n', keymap.file_explorer_close_parent_dir, api.node.navigate.parent_close, opts("Close parent"))
+                vim.keymap.set('n', keymap.file_explorer_close_all_dir, api.tree.collapse_all, opts("collapse all"))
+                vim.keymap.set('n', keymap.file_explorer_create, api.fs.create, opts('Create'))
+                vim.keymap.set('n', keymap.file_explorer_goto_parent, api.node.navigate.parent, opts('go to parent'))
+                vim.keymap.set('n', keymap.file_explorer_rename, api.fs.rename, opts('Rename'))
+                vim.keymap.set('n', keymap.file_explorer_remove, api.fs.remove, opts('Remove'))
+                vim.keymap.set('n', keymap.file_explorer_trash, api.fs.trash, opts('Trash'))
+                vim.keymap.set('n', keymap.file_explorer_copy, api.fs.copy.node, opts('copy'))
+                vim.keymap.set('n', keymap.file_explorer_cut, api.fs.cut, opts('cut'))
+                vim.keymap.set('n', keymap.file_explorer_paste, api.fs.paste, opts('paste'))
+                vim.keymap.set('n', keymap.file_explorer_show_info, api.node.show_info_popup, opts('File Infomation'))
+                vim.keymap.set('n', keymap.file_explorer_reload, api.tree.reload, opts('Reload'))
             end
 
             require("nvim-tree").setup({
@@ -99,6 +88,9 @@ return {
                     },
                     exclude = function(event)
                         local full_path = vim.api.nvim_buf_get_name(event.buf)
+                        -- cpp 项目的第三方依赖在项目根目录下
+                        -- 依赖前面的 update_root = false 并不能限制目录切换
+                        -- 因此这里通过 exlude 的回调函数来判断是否跳过目录切换
                         if string.find(full_path, "/3rdparty/") then
                             return true
                         else

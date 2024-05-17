@@ -1,4 +1,8 @@
 -- git blame 插件
+local keymap = require("keymap")
+keymap.map2cmd("n", keymap.open_git_blame, "<CMD>BlameToggle<CR>")
+keymap.map2cmd("n", keymap.goto_vsc_diff, '<CMD>Gitsigns preview_hunk_inline<CR>')
+
 return {
     {
         os.getenv("ghproxy") .. "https://github.com/lewis6991/gitsigns.nvim.git",

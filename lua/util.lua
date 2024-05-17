@@ -12,5 +12,17 @@ function M.exists(file)
     return ok, err
 end
 
+function M.run_delay(fn, delay)
+    vim.loop.new_timer():start(delay, 0, vim.schedule_wrap(fn))
+end
+
+function M.delay(second)
+    os.execute("sleep " .. second)
+end
+
+function M.log(content)
+    os.execute('echo "' .. content .. '" > /tmp/nvim.log')
+end
+
 return M
 
