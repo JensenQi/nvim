@@ -8,10 +8,11 @@ if __name__ == "__main__":
         'java': JavaWaiter(),
         'scala': ScalaWaiter(),
         'go': GoWaiter(),
-        'rust': RustWaiter(), 'rs': RustWaiter(),
+        'rust': RustWaiter(),
         'c': CWaiter(),
-        'cpp': CppWaiter(), 'c++': CppWaiter(),
-        'python': PythonWaiter(), 'py': PythonWaiter(),
+        'cpp': CppWaiter(),
+        'python': PythonWaiter(),
+        'nest': NestJsWaiter(),
     }
     support_langs = list(waiters.keys())
 
