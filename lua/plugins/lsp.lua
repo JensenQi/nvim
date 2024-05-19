@@ -1,4 +1,21 @@
---
+-- 语言服务器协议插件
+local keymap = require('keymap')
+
+local function lsp_not_ready()
+    vim.notify("LSP of " .. _G.PROJECT_TYPE .. " not ready yet. Waiting...")
+end
+-- lsp 占坑
+keymap.map2fun('n', keymap.goto_definition, lsp_not_ready)
+keymap.map2fun('n', keymap.goto_class_definition, lsp_not_ready)
+keymap.map2fun('n', keymap.goto_preview, lsp_not_ready)
+keymap.map2fun('n', keymap.find_usage, lsp_not_ready)
+keymap.map2fun('n', keymap.find_implement, lsp_not_ready)
+keymap.map2fun('n', keymap.code_action, lsp_not_ready)
+keymap.map2fun('n', keymap.refactor_name, lsp_not_ready)
+keymap.map2fun('n', keymap.goto_next_problem, lsp_not_ready)
+keymap.map2fun('n', keymap.go_back, lsp_not_ready)
+keymap.map2fun('n', keymap.format_file, lsp_not_ready)
+
 return {
     {
         os.getenv("ghproxy") .. "https://github.com/williamboman/mason.nvim.git",
@@ -6,8 +23,9 @@ return {
         dependencies = {
             os.getenv("ghproxy") .. "https://github.com/williamboman/mason-lspconfig.nvim.git",
             os.getenv("ghproxy") .. "https://github.com/neovim/nvim-lspconfig.git",
-            os.getenv("ghproxy") .. "https://github.com/mfussenegger/nvim-jdtls.git",
-            os.getenv("ghproxy") .. "https://github.com/scalameta/nvim-metals.git",
+            os.getenv("ghproxy") .. "https://github.com/mfussenegger/nvim-jdtls.git",     -- java
+            os.getenv("ghproxy") .. "https://github.com/scalameta/nvim-metals.git",       --scala
+            os.getenv("ghproxy") .. "https://github.com/folke/neodev.nvim.git",           -- lua
         },
         config = function()
             require('mason').setup({
@@ -39,12 +57,12 @@ return {
             elseif _G.PROJECT_TYPE == "rust" then
                 lsp.rust_analyzer.setup({})
             elseif _G.PROJECT_TYPE == "lua" then
+                require("neodev").setup({})
                 lsp.lua_ls.setup({
                     settings = {
                         Lua = {
-                            diagnostics = {
-                                globals = { 'vim' }
-                            }
+                            completion = { callSnippet = "Replace" },
+                            diagnostics = { globals = { 'vim' } }
                         }
                     }
                 })
@@ -71,8 +89,7 @@ return {
                     settings = { java = {} },
                     init_options = { bundles = {} },
                 }
-                -- jdtls 比较特殊, 每个 buf 都需要在 filetype 事件中 attach
-                -- 这里注册一下事件
+                -- jdtls 比较特殊, 每个 buf 都需要在 filetype 事件中 attach, 这里注册一下事件
                 -- 另一种做法是把 jdtls 放到 ftplugin/java.lua 中
                 vim.api.nvim_create_autocmd("FileType", {
                     pattern = "java",
@@ -82,8 +99,9 @@ return {
                 })
             elseif _G.PROJECT_TYPE == "scala" then
                 local metals_config = require("metals").bare_config()
-                metals_config.init_options.statusBarProvider = "on"
+                metals_config.init_options.statusBarProvider = "off" -- Scala progress 重定向给 fidget
                 local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+                -- scala 的 metals 与 java 的 jdtls 类似, 每个 buf 都需要 attach
                 vim.api.nvim_create_autocmd("FileType", {
                     pattern = { "scala", "sbt", "java" },
                     callback = function()

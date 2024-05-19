@@ -1,16 +1,20 @@
---
+-- LSP UI 美化
 local keymap = require('keymap')
 
-keymap.map2fun('n', keymap.goto_next_problem, vim.diagnostic.goto_next)
-keymap.map2cmd('n', keymap.goto_definition, '<CMD>Lspsaga goto_definition<CR>')
-keymap.map2cmd('n', keymap.go_back, "<C-t>")
-keymap.map2cmd('n', keymap.goto_class_definition, '<CMD>Lspsaga goto_type_definition<CR>')
-keymap.map2cmd('n', keymap.goto_preview, '<CMD>Lspsaga peek_definition<CR>')
-keymap.map2cmd('n', keymap.find_usage, '<CMD>Lspsaga finder<CR>')
-keymap.map2cmd('n', keymap.find_implement, '<CMD>Lspsaga finder imp<CR>')
-keymap.map2cmd('n', keymap.code_action, "<CMD>Lspsaga code_action<CR>")
-keymap.map2cmd('n', keymap.refactor_name, "<CMD>Lspsaga rename<CR>")
-keymap.map2fun('n', keymap.format_file, function() vim.lsp.buf.format({ async = true }) end)
+local function remapKeySaga()
+    -- 部分语言建立 LSP 后在索引完成前, 调用 lspsaga 的命令会因没有结果返回而导致后续命令无法调度
+    -- 这里提供 remap key sega 用于 LSP 建立索引后回调设置键位
+    keymap.map2cmd('n', keymap.goto_definition, '<CMD>Lspsaga goto_definition<CR>')
+    keymap.map2cmd('n', keymap.goto_class_definition, '<CMD>Lspsaga goto_type_definition<CR>')
+    keymap.map2cmd('n', keymap.goto_preview, '<CMD>Lspsaga peek_definition<CR>')
+    keymap.map2cmd('n', keymap.find_usage, '<CMD>Lspsaga finder ref<CR>')
+    keymap.map2cmd('n', keymap.find_implement, '<CMD>Lspsaga finder imp<CR>')
+    keymap.map2cmd('n', keymap.code_action, "<cmd>Lspsaga code_action<cr>")
+    keymap.map2cmd('n', keymap.refactor_name, "<cmd>Lspsaga rename<cr>")
+    keymap.map2fun('n', keymap.goto_next_problem, vim.diagnostic.goto_next)
+    keymap.map2cmd('n', keymap.go_back, "<C-t>")
+    keymap.map2fun('n', keymap.format_file, function() vim.lsp.buf.format({ async = true }) end)
+end
 
 return {
     {
@@ -20,11 +24,10 @@ return {
             os.getenv("ghproxy") .. "https://github.com/nvim-treesitter/nvim-treesitter.git",
             os.getenv("ghproxy") .. "https://github.com/nvim-tree/nvim-web-devicons.git",
             os.getenv("ghproxy") .. "https://github.com/neovim/nvim-lspconfig.git",
+            os.getenv("ghproxy") .. "https://github.com/j-hui/fidget.nvim.git",
         },
         config = function()
             vim.diagnostic.config({ virtual_text = false })
-            -- require('lspconfig').setup({})
-
             require('lspsaga').setup({
                 symbol_in_winbar = { -- 头部路径
                     enable = true,
@@ -68,6 +71,37 @@ return {
                     virtual_text = false,
                 },
             })
+
+            -- 下面这几类项目的 LSP 启动后需要建立索引后才能执行后续操作
+            -- 因此需要监控 LSP 的索引 progress 状态，所以完毕后再 remap 快捷键
+            local ready_signal = {
+                scala = "Indexing",
+                rust = "Roots Scanned",
+                java = "Publish Diagnostics",
+                lua = "Loading workspace",
+            }
+            require("fidget").setup({
+                progress = {
+                    display = {
+                        format_annote = function(msg)
+                            if msg.done and msg.title == ready_signal[_G.PROJECT_TYPE] then
+                                vim.notify("LSP of " .. _G.PROJECT_TYPE .. " Ready")
+                                remapKeySaga()
+                            end
+                            return msg.title
+                        end
+                    }
+                },
+                notification = {
+                    override_vim_notify = true,
+                }
+            })
+
+            -- 剩余的语言不依赖索引，可以直接 remap 快捷键
+            if ready_signal[_G.PROJECT_TYPE] == nil then
+                vim.notify("LSP of " .. _G.PROJECT_TYPE .. " Ready")
+                remapKeySaga()
+            end
         end
     }
 }

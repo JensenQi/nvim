@@ -20,8 +20,12 @@ function M.delay(second)
     os.execute("sleep " .. second)
 end
 
+function M.init_log()
+    os.execute('echo "" >> /tmp/nvim.log')
+end
+
 function M.log(content)
-    os.execute('echo "' .. content .. '" > /tmp/nvim.log')
+    os.execute('echo "' .. content .. '" >> /tmp/nvim.log')
 end
 
 return M

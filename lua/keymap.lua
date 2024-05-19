@@ -23,7 +23,7 @@ local M = {
 
     open_commander = "<esc>p", -- 打开自定义快捷命令面板
     exec_run_command = "<F5>", -- 执行项目 Run 命令
-    exec_build_command = "<F6>", -- 执行项目 Build 命令
+    exec_build_command = "<F4>", -- 执行项目 Build 命令
     exec_release_command = "<F10>", -- 执行项目打包命令
 
     find_file = "<esc>o", -- 查找文件
@@ -36,23 +36,23 @@ local M = {
     goto_class_definition = 'gc', -- 跳转到类定义的地方
 
     goto_preview = 'gp', -- 显示函数预览
-    close_preview = "<esc><esc>",
+    close_preview = "<esc>",
 
     find_usage = "gu", -- 查看函数或变量的引用
     usage_jump = "<CR>",
     usage_edit = "<Tab>",
-    close_find_usage = "<esc><esc>",
+    close_find_usage = "<esc>",
 
     find_implement = "gi", -- 查看接口的继承
     code_action = "<A-Enter>", -- 列举修复建议
-    close_code_action = "<esc><esc>",
+    close_code_action = "<esc>",
     code_action_confirm = "<CR>",
     code_complete = "<A-Enter>", -- [normal] 列举自动补全项
     complete_confirm_or_jump_next_slot = "<Tab>",
     complete_confirm = "<CR>",
-    refactor_name = '<s-F6>', -- [insert]变量或函数重命名
+    refactor_name = '<s-r>', -- [insert]变量或函数重命名
     refactor_confirm = "<CR>",
-    close_refactor = "<esc><esc>",
+    close_refactor = "<esc>",
 
     format_file = "<C-A-L>", -- 格式化文件
     goto_test_file = "gt",
@@ -83,7 +83,7 @@ local M = {
     file_explorer_reload = 'R',
 
     open_outline = '<esc>[]',
-    close_outline = '<esc><esc>',
+    close_outline = '<esc>',
     outline_goto_next_line = 'j',
     outline_goto_prev_line = 'k',
     goto_prev_object = '[',
