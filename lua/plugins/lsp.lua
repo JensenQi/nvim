@@ -52,6 +52,8 @@ return {
             local lsp = require('lspconfig')
             if _G.PROJECT_TYPE == "python" then
                 lsp.pyright.setup({})
+            elseif _G.PROJECT_TYPE == "typescript" then
+                lsp.tsserver.setup({})
             elseif _G.PROJECT_TYPE == "cmake" then
                 lsp.clangd.setup({})
             elseif _G.PROJECT_TYPE == "rust" then

@@ -79,6 +79,7 @@ return {
                 rust = "Roots Scanned",
                 java = "Publish Diagnostics",
                 lua = "Loading workspace",
+                typescript = "Initializing JS/TS language features…",
             }
             require("fidget").setup({
                 progress = {

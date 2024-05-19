@@ -40,5 +40,7 @@ elseif util.exists(PROJECT_PATH .. "/Cargo.toml") then
     PROJECT_TYPE = "rust"
 elseif util.exists(PROJECT_PATH .. "/lua") then
     PROJECT_TYPE = "lua"
+elseif util.exists(PROJECT_PATH .. "/package.json") then
+    PROJECT_TYPE = "typescript"
 end
 
