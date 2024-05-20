@@ -44,9 +44,12 @@ class Resource(object):
         resource = Resource(file_name)
         return resource
 
-    def to(self, target_path: str):
+    def to(self, target_path: str, recursive=False):
         target_dir = os.path.dirname(target_path)
         if not os.path.exists(target_dir):
             os.makedirs(target_dir, exist_ok=True)
-        shutil.copy(self.source_path, target_path)
+        if recursive:
+            shutil.copytree(self.source_path, target_path)
+        else:
+            shutil.copy(self.source_path, target_path)
 

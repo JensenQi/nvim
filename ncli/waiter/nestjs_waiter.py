@@ -14,21 +14,8 @@ class NestJsWaiter(AbstractWaiter):
 
         super().work(default_loc=name)
 
-        StaticResource("quickstart-nestjs/src/app.controller.spec.ts") \
-            .save(f"{self.project_loc}/src/app.controller.spec.ts")
-        StaticResource("quickstart-nestjs/src/app.controller.ts") \
-            .save(f"{self.project_loc}/src/app.controller.ts")
-        StaticResource("quickstart-nestjs/src/app.module.ts") \
-            .save(f"{self.project_loc}/src/app.module.ts")
-        StaticResource("quickstart-nestjs/src/app.service.ts") \
-            .save(f"{self.project_loc}/src/app.service.ts")
-        StaticResource("quickstart-nestjs/src/main.ts") \
-            .save(f"{self.project_loc}/src/main.ts")
-
-        StaticResource("quickstart-nestjs/test/app.e2e-spec.ts") \
-            .save(f"{self.project_loc}/test/app.e2e-spec.ts")
-        StaticResource("quickstart-nestjs/test/jest-e2e.json") \
-            .save(f"{self.project_loc}/test/jest-e2e.json")
+        StaticResource("quickstart-nestjs/src").save(f"{self.project_loc}/src")
+        StaticResource("quickstart-nestjs/test").save(f"{self.project_loc}/test")
 
         StaticResource("quickstart-nestjs/nest-cli.json") \
             .save(f"{self.project_loc}/nest-cli.json")

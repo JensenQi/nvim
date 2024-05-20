@@ -1,3 +1,4 @@
+from os.path import isdir
 from .resource import Resource
 
 
@@ -7,5 +8,9 @@ class StaticResource:
         self._resource = Resource.copy(file_name)
 
     def save(self, target_path: str):
-        self._resource.to(target_path)
+        if isdir(self._resource.source_path):
+            self._resource.to(target_path, recursive=True)
+        else:
+            self._resource.to(target_path)
         return self
+

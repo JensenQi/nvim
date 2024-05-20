@@ -24,23 +24,7 @@ class PythonWaiter(AbstractWaiter):
             .set("email", email) \
             .save(f"{self.project_loc}/pyproject.toml")
 
-        StaticResource("quickstart-python/src/app.py") \
-            .save(f"{self.project_loc}/src/app.py")
+        StaticResource("quickstart-python/src").save(f"{self.project_loc}/src")
+        StaticResource("quickstart-python/tests").save(f"{self.project_loc}/tests")
         NewResource("\n").save(f"{self.project_loc}/src/__init__.py")
-
-        StaticResource("quickstart-python/src/foo/foo.py") \
-            .save(f"{self.project_loc}/src/foo/foo.py")
-        StaticResource("quickstart-python/src/bar/bar.py") \
-            .save(f"{self.project_loc}/src/bar/bar.py")
-        StaticResource("quickstart-python/src/foo/__init__.py") \
-            .save(f"{self.project_loc}/src/foo/__init__.py")
-        StaticResource("quickstart-python/src/bar/__init__.py") \
-            .save(f"{self.project_loc}/src/bar/__init__.py")
-
-        StaticResource("quickstart-python/tests/foo/test_foo.py") \
-            .save(f"{self.project_loc}/tests/foo/test_foo.py")
-        StaticResource("quickstart-python/tests/bar/test_bar.py") \
-            .save(f"{self.project_loc}/tests/bar/test_bar.py")
-        StaticResource("quickstart-python/tests/__init__.py") \
-            .save(f"{self.project_loc}/tests/__init__.py")
 

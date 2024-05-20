@@ -19,29 +19,10 @@ class CppWaiter(AbstractWaiter):
         StaticResource("quickstart-cpp/app/CMakeLists.txt")\
             .save(f"{self.project_loc}/app/CMakeLists.txt")
 
-        StaticResource("quickstart-cpp/cmake/googletest.cmake")\
-            .save(f"{self.project_loc}/cmake/googletest.cmake")
-
-        StaticResource("quickstart-cpp/include/bar.hpp")\
-            .save(f"{self.project_loc}/include/bar.hpp")
-        StaticResource("quickstart-cpp/include/foo.hpp")\
-            .save(f"{self.project_loc}/include/foo.hpp")
-
-        StaticResource("quickstart-cpp/src/bar.cpp")\
-            .save(f"{self.project_loc}/src/bar.cpp")
-        StaticResource("quickstart-cpp/src/foo.cpp")\
-            .save(f"{self.project_loc}/src/foo.cpp")
-        StaticResource("quickstart-cpp/src/CMakeLists.txt")\
-            .save(f"{self.project_loc}/src/CMakeLists.txt")
-
-        StaticResource("quickstart-cpp/test/test.cpp")\
-            .save(f"{self.project_loc}/test/test.cpp")
-        StaticResource("quickstart-cpp/test/test_bar.cpp")\
-            .save(f"{self.project_loc}/test/test_bar.cpp")
-        StaticResource("quickstart-cpp/test/test_foo.cpp")\
-            .save(f"{self.project_loc}/test/test_foo.cpp")
-        StaticResource("quickstart-cpp/test/CMakeLists.txt")\
-            .save(f"{self.project_loc}/test/CMakeLists.txt")
+        StaticResource("quickstart-cpp/cmake").save(f"{self.project_loc}/cmake")
+        StaticResource("quickstart-cpp/include").save(f"{self.project_loc}/include")
+        StaticResource("quickstart-cpp/src").save(f"{self.project_loc}/src")
+        StaticResource("quickstart-cpp/test").save(f"{self.project_loc}/test")
 
         DynamicResource("quickstart-cpp/CMakeLists.txt")\
             .set("name", name) \
@@ -49,3 +30,4 @@ class CppWaiter(AbstractWaiter):
             .save(f"{self.project_loc}/CMakeLists.txt") \
 
         self.mkdir("build")
+
