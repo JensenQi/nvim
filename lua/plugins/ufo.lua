@@ -1,5 +1,4 @@
---
-
+-- 折叠美化插件
 local adding_number_suffix_of_folded_lines = function(virtText, lnum, endLnum, width, truncate)
     local newVirtText = {}
     local suffix = (' ... 󰁂 fold %d lines'):format(endLnum - lnum)
@@ -48,4 +47,3 @@ return {
         end
     }
 }
-

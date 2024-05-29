@@ -23,4 +23,3 @@ require("lazy").setup("plugins", {
         timeout = 300,
     },
 })
-

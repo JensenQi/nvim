@@ -14,6 +14,8 @@ local function remapKeySaga()
     keymap.map2fun('n', keymap.goto_next_problem, vim.diagnostic.goto_next)
     keymap.map2cmd('n', keymap.go_back, "<C-t>")
     keymap.map2fun('n', keymap.format_file, function() vim.lsp.buf.format({ async = true }) end)
+
+    vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format({ async = true }) end, {})
 end
 
 return {
@@ -106,4 +108,3 @@ return {
         end
     }
 }
-

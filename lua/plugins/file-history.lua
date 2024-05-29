@@ -1,10 +1,10 @@
---
+-- 文件本地历史保存插件
 local keymap = require("keymap")
 keymap.map2cmd("n", keymap.find_file_hisotry, "<CMD>Telescope file_history history initial_mode=normal<CR>")
 
 return {
     {
-        os.getenv("ghproxy") .. "https://github.com/dawsers/telescope-file-history.nvim.git",
+        os.getenv("ghproxy") .. "https://github.com/JensenQi/telescope-file-history.nvim.git",
         version = "*",
         dependencies = {
             os.getenv("ghproxy") .. "https://github.com/nvim-telescope/telescope.nvim.git",
@@ -26,4 +26,3 @@ return {
         end
     }
 }
-

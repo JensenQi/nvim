@@ -5,16 +5,16 @@ local function lsp_not_ready()
     vim.notify("LSP of " .. _G.PROJECT_TYPE .. " not ready yet. Waiting...")
 end
 -- lsp 占坑
-keymap.map2fun('n', keymap.goto_definition, lsp_not_ready)
-keymap.map2fun('n', keymap.goto_class_definition, lsp_not_ready)
-keymap.map2fun('n', keymap.goto_preview, lsp_not_ready)
-keymap.map2fun('n', keymap.find_usage, lsp_not_ready)
-keymap.map2fun('n', keymap.find_implement, lsp_not_ready)
-keymap.map2fun('n', keymap.code_action, lsp_not_ready)
-keymap.map2fun('n', keymap.refactor_name, lsp_not_ready)
-keymap.map2fun('n', keymap.goto_next_problem, lsp_not_ready)
-keymap.map2fun('n', keymap.go_back, lsp_not_ready)
-keymap.map2fun('n', keymap.format_file, lsp_not_ready)
+-- keymap.map2fun('n', keymap.goto_definition, lsp_not_ready)
+-- keymap.map2fun('n', keymap.goto_class_definition, lsp_not_ready)
+-- keymap.map2fun('n', keymap.goto_preview, lsp_not_ready)
+-- keymap.map2fun('n', keymap.find_usage, lsp_not_ready)
+-- keymap.map2fun('n', keymap.find_implement, lsp_not_ready)
+-- keymap.map2fun('n', keymap.code_action, lsp_not_ready)
+-- keymap.map2fun('n', keymap.refactor_name, lsp_not_ready)
+-- keymap.map2fun('n', keymap.goto_next_problem, lsp_not_ready)
+-- keymap.map2fun('n', keymap.go_back, lsp_not_ready)
+-- keymap.map2fun('n', keymap.format_file, lsp_not_ready)
 
 local function start_lsp(opts)
     local lsp = require('lspconfig')
@@ -53,6 +53,7 @@ local function start_lsp(opts)
                 '--add-modules=ALL-SYSTEM',
                 '--add-opens', 'java.base/java.util=ALL-UNNAMED',
                 '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+                '-javaagent:/root/.config/nvim/share/nvim/mason/packages/jdtls/lombok.jar',
                 '-jar', jdt_path .. '/plugins/org.eclipse.equinox.launcher_1.6.700.v20231214-2017.jar',
                 '-data', '/tmp/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
             },
@@ -92,9 +93,9 @@ return {
         dependencies = {
             os.getenv("ghproxy") .. "https://github.com/williamboman/mason-lspconfig.nvim.git",
             os.getenv("ghproxy") .. "https://github.com/neovim/nvim-lspconfig.git",
-            os.getenv("ghproxy") .. "https://github.com/mfussenegger/nvim-jdtls.git",     -- java
-            os.getenv("ghproxy") .. "https://github.com/scalameta/nvim-metals.git",       --scala
-            os.getenv("ghproxy") .. "https://github.com/folke/neodev.nvim.git",           -- lua
+            os.getenv("ghproxy") .. "https://github.com/mfussenegger/nvim-jdtls.git", -- java
+            os.getenv("ghproxy") .. "https://github.com/scalameta/nvim-metals.git",   --scala
+            os.getenv("ghproxy") .. "https://github.com/folke/neodev.nvim.git",       -- lua
         },
         config = function()
             require('mason').setup({
@@ -119,8 +120,8 @@ return {
             })
 
             local lsp_mapping = {
-                python=  "python",
-                typescript= "typescript",
+                python = "python",
+                typescript = "typescript",
                 cmake = "cmake",
                 rust = "rust",
                 lua = "lua",
@@ -131,4 +132,3 @@ return {
         end
     }
 }
-

@@ -1,4 +1,4 @@
---
+-- AI 代码提示插件
 return {
     {
         os.getenv("ghproxy") .. "https://github.com/Exafunction/codeium.nvim.git",
@@ -15,4 +15,3 @@ return {
         end
     }
 }
-

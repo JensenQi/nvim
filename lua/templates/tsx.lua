@@ -8,8 +8,7 @@ export default function (props: {}) {
     return <>
         |cursor|
     </>
-}
-]]
+}]]
 end
 
 return function(opts)
@@ -19,4 +18,3 @@ return function(opts)
 
     return utils.find_entry(template, opts)
 end
-

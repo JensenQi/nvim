@@ -7,7 +7,9 @@ vim.opt.shiftwidth = 4         -- 换行缩进 4 个空格
 vim.opt.autoindent = true      -- 自动缩进
 vim.opt.expandtab = true       -- 用空格替换 tab
 vim.opt.cursorline = true      -- 光标行高亮
--- vim.opt.cmdheight = 0          -- 隐藏命令行
+
+-- filetype plugin 会根据文件类型调整缩进空格数量, 因此这里关闭它
+vim.api.nvim_command('filetype plugin off')
 
 vim.opt.termguicolors = true
 vim.g.no_plugin_maps = 1 -- 关闭 vim 默认的 filetype plugin 快捷键映射, 避免与 aerial 插件冲突
@@ -43,4 +45,3 @@ elseif util.exists(PROJECT_PATH .. "/lua") then
 elseif util.exists(PROJECT_PATH .. "/package.json") then
     PROJECT_TYPE = "typescript"
 end
-

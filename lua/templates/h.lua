@@ -2,7 +2,7 @@ local utils = require("new-file-template.utils")
 
 -- header 模板
 local function default_header_template(entity_name)
-    os.execute("echo '\n' > src/"..entity_name ..".c")
+    os.execute("echo '\n' > src/" .. entity_name .. ".c")
     return "\n"
 end
 
@@ -18,6 +18,3 @@ return function(opts)
 
     return utils.find_entry(template, opts)
 end
-
-
-

@@ -54,3 +54,5 @@ class ScalaWaiter(AbstractWaiter):
             .save(f"{self.project_loc}/src/main/resources/log4j.properties") \
             .save(f"{self.project_loc}/src/test/resources/log4j.properties") \
 
+        StaticResource("quickstart-scala/scalafmt.conf")\
+            .save(f"{self.project_loc}/.scalafmt.conf") \

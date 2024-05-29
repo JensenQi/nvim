@@ -7,9 +7,8 @@ return {
         config = function()
             require("nvim-autopairs").setup({
                 enable_afterquote = false, -- 避免 foo("bar" -> foo("bar")
-                map_cr = false -- 禁用 CR, 避免与自动补全的 CR 冲突
+                map_cr = false             -- 禁用 CR, 避免与自动补全的 CR 冲突
             })
         end
     }
 }
-

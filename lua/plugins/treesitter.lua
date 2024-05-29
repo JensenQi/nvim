@@ -23,13 +23,13 @@ return {
             local configs = require("nvim-treesitter.configs")
             configs.setup({
                 -- support language
-                ensure_installed = {
+                ensure_installed = { 
                     "c", "cmake", "cpp", "cuda", "llvm", "rust",
                     "groovy", "java", "kotlin", "scala", "go",
                     "css", "html", "javascript", "typescript", "vue",
-                    "bash", "lua", "python", "vim",
-                    "hocon", "ini", "json", "proto", "toml", "yaml",
-                    "dockerfile", "gitignore",
+                    "bash", "lua", "python", "vim", "vimdoc",
+                    "hocon", "ini", "json", "proto", "toml", "yaml", "xml",
+                    "dockerfile", "gitignore", "csv",
                     "latex", "markdown", "sql",
                 },
                 sync_install = false,
@@ -44,7 +44,7 @@ return {
                     end
                 end,
 
-                indent = { enable = true },
+                -- indent = { enable = true },
 
                 fold = {
                     fold_one_line_after = true,

@@ -3,8 +3,8 @@ local utils = require("new-file-template.utils")
 -- main 模板
 local function default_main_template(pack, entity_type, entity_name)
     return [[
-package ]] .. pack .. [[;\n\n
-public ]] .. entity_type .. [[ ]] .. entity_name .. [[ {\n    |cursor|\n}\n]]
+package ]] .. pack .. [[;\n
+public ]] .. entity_type .. [[ ]] .. entity_name .. [[ {\n    |cursor|\n}]]
 end
 
 local function main_template(relative_path, filename)
@@ -18,8 +18,8 @@ end
 -- test 模板
 local function default_test_template(pack, entity_name)
     return [[
-package ]] .. pack .. [[;\n\nimport org.junit.Test;\n\nimport static org.junit.Assert.*;\n\n
-public class ]] .. entity_name .. [[ {\n\n    @Test\n    public void test|cursor|() {\n    }\n\n}\n]]
+package ]] .. pack .. [[;\n\nimport org.junit.Test;\n\nimport static org.junit.Assert.*;\n
+public class ]] .. entity_name .. [[ {\n\n    @Test\n    public void test|cursor|() {\n    }\n\n}]]
 end
 
 local function test_template(relative_path, filename)
@@ -41,6 +41,3 @@ return function(opts)
 
     return utils.find_entry(template, opts)
 end
-
-
-

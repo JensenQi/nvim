@@ -1,5 +1,27 @@
 local M = {}
 
+function M.split(s, delimiter)
+    local result = {}
+
+    for match in (s .. delimiter):gmatch("(.-)" .. delimiter) do
+        table.insert(result, match)
+    end
+
+    return result
+end
+
+function M.filename()
+    local abs_path = vim.api.nvim_buf_get_name(0)
+    local part = M.split(abs_path, "/")
+    return M.split(part[#part], "%.")[1]
+end
+
+function M.filetype()
+    local abs_path = vim.api.nvim_buf_get_name(0)
+    local part = M.split(abs_path, "/")
+    return M.split(part[#part], "%.")[2]
+end
+
 --- Check if a file or directory exists in this path
 function M.exists(file)
     local ok, err, code = os.rename(file, file)
@@ -29,4 +51,3 @@ function M.log(content)
 end
 
 return M
-

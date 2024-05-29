@@ -24,13 +24,14 @@ return {
                     ["@f"] = "󰣪 ", -- mark annotation startswith @f ,signs this icon as `Fix`
                 },
                 on_attach = function(_)
-                    keymap.map2fun("n", keymap.add_or_remove_bookmark, bm.bookmark_toggle) -- add or remove bookmark at current line
-                    keymap.map2fun("n", keymap.edit_bookmark, bm.bookmark_ann)    -- add or edit mark annotation at current line
-                    keymap.map2fun("n", keymap.remove_curr_buf_bookmark, bm.bookmark_clean)  -- clean all marks in local buffer
-                    keymap.map2fun("n", keymap.list_all_bookmarks, '<CMD>Telescope bookmarks list initial_mode=normal<CR>')
+                    keymap.map2fun("n", keymap.add_or_remove_bookmark, bm.bookmark_toggle)  -- add or remove bookmark at current line
+                    keymap.map2fun("n", keymap.edit_bookmark, bm.bookmark_ann)              -- add or edit mark annotation at current line
+                    keymap.map2fun("n", keymap.remove_curr_buf_bookmark, bm.bookmark_clean) -- clean all marks in local buffer
+                    keymap.map2fun("n", keymap.list_all_bookmarks,
+                        '<CMD>Telescope bookmarks list initial_mode=normal<CR>')
 
                     -- 删除所有 bookmarks 不绑定快捷键，避免手滑导致删除, 而是新建一个 vim 命令
-                    vim.api.nvim_create_user_command( 'CleanAllBookmark', function ()
+                    vim.api.nvim_create_user_command('CleanAllBookmark', function()
                         -- 默认情况下, 执行 clear all 操作不会更新 buffer 的 icon 信息
                         -- 这里遍历所有打开的 buffer 执行 clean 操作, 刷新 buffer 的 icon 信息
                         -- 最后再执行 clean all 操作
@@ -59,4 +60,3 @@ return {
         end
     }
 }
-

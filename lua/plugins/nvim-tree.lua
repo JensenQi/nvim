@@ -29,7 +29,6 @@ vim.api.nvim_create_autocmd("QuitPre", {
                 vim.api.nvim_win_close(w, true)
             end
         end
-
     end
 })
 
@@ -54,7 +53,8 @@ return {
                 -- custom mapping
                 vim.keymap.set('n', keymap.file_explorer_preview, api.node.open.preview, opts("Preview"))
                 vim.keymap.set('n', keymap.file_explorer_edit, api.node.open.edit, opts("Edit"))
-                vim.keymap.set('n', keymap.file_explorer_close_parent_dir, api.node.navigate.parent_close, opts("Close parent"))
+                vim.keymap.set('n', keymap.file_explorer_close_parent_dir, api.node.navigate.parent_close,
+                    opts("Close parent"))
                 vim.keymap.set('n', keymap.file_explorer_close_all_dir, api.tree.collapse_all, opts("collapse all"))
                 vim.keymap.set('n', keymap.file_explorer_create, api.fs.create, opts('Create'))
                 vim.keymap.set('n', keymap.file_explorer_goto_parent, api.node.navigate.parent, opts('go to parent'))
@@ -102,4 +102,3 @@ return {
         end
     }
 }
-
