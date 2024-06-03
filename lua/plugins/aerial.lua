@@ -20,7 +20,13 @@ return {
 
         config = function()
             require("aerial").setup({
-                backends = { "lsp", "treesitter", "markdown", "asciidoc", "man" },
+                backends = {
+                    "lsp",
+                    -- "treesitter", -- 部分语言不兼容，比如 groovy, 因此取消 treesitter 兼容
+                    "markdown",
+                    "asciidoc",
+                    "man",
+                },
                 layout = { min_width = 30, },
 
                 filter_kind = false, -- display all kile

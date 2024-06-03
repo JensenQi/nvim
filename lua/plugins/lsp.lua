@@ -99,7 +99,7 @@ return {
         },
         config = function()
             require('mason').setup({
-                log_level = vim.log.levels.DEBUG,
+                -- log_level = vim.log.levels.DEBUG,
                 github = { download_url_template = os.getenv("ghproxy") .. "https://github.com/%s/releases/download/%s/%s", },
                 ui = {
                     icons = {

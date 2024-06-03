@@ -3,8 +3,15 @@
 .bloop/
 .metals/
 .tmp/
+.settings/
+
 dist
+build
 target
 node_modules
+3rdparty
 __pycache__
 
+.classpath
+.factorypath
+.project
