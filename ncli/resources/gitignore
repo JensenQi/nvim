@@ -1,17 +1,39 @@
+# IDE
 .vim/
 .idea/
+*.iml
+
+# Build Tool
 .bloop/
 .metals/
 .tmp/
 .settings/
+.gradle/
+dist/
+build/
+target/
 
-dist
-build
-target
-node_modules
-3rdparty
+# node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# c/cpp
+3rdparty/
+
+# python
 __pycache__
 
+# java
 .classpath
 .factorypath
 .project
+*.hprof
+
+# android
+*.keystore
+!debug.keystore
+*.apk
+
+# OS
+.DS_Store
