@@ -107,72 +107,42 @@ return {
                     {
                         name = "codeium",
                         entry_filter = function(entry, ctx)
-                            local trigger = ctx.cursor_before_line:match('(%w+)$')
-                            if trigger == nil then -- 非单词结尾则返回 true
+                            local insert_text = entry:get_insert_text()
+                            if vim.g.cmp_trigger_first_char ~= string.sub(insert_text, 1, 1) or vim.g.cmp_trigger_word == insert_text then
+                                -- 如果首字符不匹配或者已经输入完毕则不展示该补全项
+                                return false
+                            else
                                 return true
                             end
-
-
-                            local insert_text = entry:get_insert_text()
-
-                            -- 如果已经输入完毕则不展示该补全项
-                            if trigger == insert_text then
-                                return false
-                            end
-
-                            -- 首字符不匹配则不展示该补全项
-                            if string.sub(trigger, 1, 1) ~= string.sub(insert_text, 1, 1) then
-                                return false
-                            end
-
-                            return true
                         end
                     },
                     {
                         name = 'nvim_lsp',
                         entry_filter = function(entry, ctx)
-                            local trigger = ctx.cursor_before_line:match('(%w+)$')
-                            if trigger == nil then -- 非单词结尾则返回 true
+                            if vim.g.cmp_trigger_last_char == "." then
                                 return true
                             end
 
                             local insert_text = entry:get_insert_text()
-
-                            -- 如果已经输入完毕则不展示该补全项
-                            if trigger == insert_text then
+                            if vim.g.cmp_trigger_first_char ~= string.sub(insert_text, 1, 1) or vim.g.cmp_trigger_word == insert_text then
+                                -- 如果首字符不匹配或者已经输入完毕则不展示该补全项
                                 return false
+                            else
+                                return true
                             end
-
-                            -- 首字符不匹配则不展示该补全项
-                            if string.sub(trigger, 1, 1) ~= string.sub(insert_text, 1, 1) then
-                                return false
-                            end
-
-                            return true
                         end
                     },
                     { name = 'path', },
                     {
                         name = 'buffer',
                         entry_filter = function(entry, ctx)
-                            local trigger = ctx.cursor_before_line:match('(%w+)$')
-                            if trigger == nil then -- 非单词结尾则返回 false
-                                return false
-                            end
-
                             local insert_text = entry:get_insert_text()
-
-                            -- 如果已经输入完毕则不展示该补全项
-                            if trigger == insert_text then
+                            if vim.g.cmp_trigger_first_char ~= string.sub(insert_text, 1, 1) or vim.g.cmp_trigger_word == insert_text then
+                                -- 如果首字符不匹配或者已经输入完毕则不展示该补全项
                                 return false
+                            else
+                                return true
                             end
-
-                            -- 首字符不匹配则不展示该补全项
-                            if string.sub(trigger, 1, 1) ~= string.sub(insert_text, 1, 1) then
-                                return false
-                            end
-
-                            return true
                         end
                     },
                     {
@@ -181,21 +151,13 @@ return {
                             local snip_abbr = entry:get_completion_item().label
                             local is_postfix_snip = string.sub(snip_abbr, 1, 1) == "."
 
-                            local cursor_before_line = ctx.cursor_before_line
-                            local attemp_postfix_snip = ctx.cursor_before_line:match("%.(%w+)$") or
-                            ctx.cursor_before_line:sub(-1) == "."
-
-                            -- postfix 补全
-                            if attemp_postfix_snip then
+                            if vim.g.cmp_trigger_contain_dot then
+                                -- postfix 补全则只展示 postfix 候选
                                 return is_postfix_snip
+                            else
+                                -- 否则只展示非 postfix 候选
+                                return not is_postfix_snip
                             end
-
-                            -- 非 postfix 补全
-                            if is_postfix_snip then
-                                return false
-                            end
-
-                            return true
                         end
                     },
                 })
@@ -205,25 +167,52 @@ return {
             keymap.map2fun("i", keymap.code_complete, function() cmp.complete() end)
 
             -- 自动打开补全
+            local complete_delay = 200
             vim.api.nvim_create_autocmd("TextChangedI", {
                 callback = function()
-                    local line_num, col_num = unpack(vim.api.nvim_win_get_cursor(0))
-                    if col_num == 0 then
-                        return -- 输入少于 1 个字符不发起补全
-                    end
+                    vim.g.last_text_change_timestamp = vim.loop.now()
+                    vim.loop.new_timer():start(complete_delay, 0, vim.schedule_wrap(function()
+                        -- 如果距离最后一次输入在 complete_delay 之内，则不触发
+                        -- 避免频繁调用导致卡顿
+                        local clock = vim.loop.now()
+                        local timediff = clock - (vim.g.last_text_change_timestamp or 0)
+                        if timediff < complete_delay then
+                            return
+                        end
 
-                    local current_line = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, true)[1]
-                    local pre_char = current_line:sub(col_num, col_num)
+                        local line_num, col_num = unpack(vim.api.nvim_win_get_cursor(0))
+                        if col_num == 0 then
+                            return -- 输入少于 1 个字符不发起补全
+                        end
 
-                    if cmp.visible() and pre_char == ' ' then
-                        -- 如果已经打开自动补全, 并且前一个字符为空格，则关闭补全
-                        cmp.close()
-                    end
+                        local current_line = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, true)[1]
+                        local last_char = current_line:sub(col_num, col_num)
 
-                    -- 如果没有打开补全，字符不是空格，则打开补全
-                    if pre_char ~= ' ' then
+                        if last_char == ' ' then
+                            -- 最后一个字符如果是空格，则标示补全结束
+                            if cmp.visible() then
+                                -- 如果此时补全菜单打开，则关闭补全
+                                cmp.close()
+                            else
+                                -- 否则直接结束
+                                return
+                            end
+                        end
+
+
+                        -- 最后一个字符不是空格，且没有打开补全，则准备准备打开补全
+                        vim.g.cmp_trigger_last_char = current_line:sub(-1, -1)
+                        vim.g.cmp_trigger_word = current_line:match('([%w_]+)$') or ''
+                        if vim.g.cmp_trigger_word == '' then
+                            vim.g.cmp_trigger_first_char = vim.g.cmp_trigger_last_char
+                        else
+                            vim.g.cmp_trigger_first_char = vim.g.cmp_trigger_word:sub(1, 1)
+                        end
+                        vim.g.cmp_trigger_contain_dot = (current_line:match("%.(%w+)$") ~= nil) or
+                        (current_line:sub(-1, -1) == ".")
+
                         cmp.complete()
-                    end
+                    end))
                 end
             })
 
