@@ -36,7 +36,17 @@ return {
                         if cmp.visible() then
                             cmp.confirm({ select = true })
                         elseif luasnip.locally_jumpable(1) then
-                            luasnip.jump(1)
+                            -- 如果可以调到下一个 slot, 则执行跳转
+                            -- bugfix: 当输入一个 snip, 然后删除这个 snip, 此时 locally_jumpable 依然为 true
+                            -- 因此这里先把 deleted 的 snip unlink 掉再二次判断一次
+                            -- 之所以把 unlink 放在这里是为了更好的性能，先简单判断 jumpable 再仔细判断 jumpable
+                            -- 避免按 tab 频繁调用 unlink
+                            luasnip.unlink_current_if_deleted()
+                            if luasnip.locally_jumpable(1) then
+                                luasnip.jump(1)
+                            else
+                                fallback()
+                            end
                         else
                             fallback()
                         end
@@ -46,6 +56,7 @@ return {
                         if cmp.visible() then
                             cmp.select_next_item()
                         else
+
                             fallback()
                         end
                     end, { "i", "s" }),
@@ -209,7 +220,7 @@ return {
                             vim.g.cmp_trigger_first_char = vim.g.cmp_trigger_word:sub(1, 1)
                         end
                         vim.g.cmp_trigger_contain_dot = (current_line:match("%.(%w+)$") ~= nil) or
-                        (current_line:sub(-1, -1) == ".")
+                            (current_line:sub(-1, -1) == ".")
 
                         cmp.complete()
                     end))
