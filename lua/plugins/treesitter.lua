@@ -44,7 +44,7 @@ return {
                     end
                 end,
 
-                -- indent = { enable = true },
+                indent = { enable = true }, -- 根据文件类型自动缩进
 
                 fold = {
                     fold_one_line_after = true,
