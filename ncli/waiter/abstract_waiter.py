@@ -20,6 +20,7 @@ class AbstractWaiter(object):
         self.project_loc = ""
         current_file_path = os.path.dirname(os.path.realpath(__file__))
         self.SHARE = f"{current_file_path}/../../share"
+        self.author = subprocess.check_output(['git', 'config', '--get', 'user.name']).decode('utf8').strip().replace(' ', '')
 
     @staticmethod
     def ask(question: str, default, choice=[]):

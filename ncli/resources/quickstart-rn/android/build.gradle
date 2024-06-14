@@ -1,0 +1,49 @@
+allprojects {
+    group = '{group_id}'
+    version = '{version}'
+    allprojects {
+        repositories {
+            maven { url 'https://maven.aliyun.com/repository/central' }
+            maven { url 'https://mirrors.sjtug.sjtu.edu.cn/maven-central' }
+            maven { url 'https://repo.nju.edu.cn/repository/maven-public' }
+            maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+            maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+            maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+            maven { url 'https://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+            maven { url 'https://maven.aliyun.com/repository/spring' }
+            maven { url 'https://maven.aliyun.com/repository/spring-plugin' }
+            maven { url 'https://maven.aliyun.com/repository/grails-core' }
+            maven { url 'https://maven.aliyun.com/repository/apache-snapshots' }
+        }
+    }
+}
+buildscript {
+    ext {
+        buildToolsVersion = "34.0.0"
+        minSdkVersion = 21
+        compileSdkVersion = 34
+        targetSdkVersion = 34
+        ndkVersion = "25.1.8937393"
+        kotlinVersion = "1.8.0"
+    }
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://mirrors.sjtug.sjtu.edu.cn/maven-central' }
+        maven { url 'https://repo.nju.edu.cn/repository/maven-public' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/spring' }
+        maven { url 'https://maven.aliyun.com/repository/spring-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/grails-core' }
+        maven { url 'https://maven.aliyun.com/repository/apache-snapshots' }
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle")
+        classpath("com.facebook.react:react-native-gradle-plugin")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+    }
+}
+
+apply plugin: "com.facebook.react.rootproject"

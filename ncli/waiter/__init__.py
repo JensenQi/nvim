@@ -7,4 +7,4 @@ from .c_waiter import CWaiter
 from .cpp_waiter import CppWaiter 
 from .python_waiter import PythonWaiter
 from .nestjs_waiter import NestJsWaiter
-
+from .rn_waiter import ReactNativeWaiter

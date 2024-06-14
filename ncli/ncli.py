@@ -13,6 +13,7 @@ if __name__ == "__main__":
         'cpp': CppWaiter(),
         'python': PythonWaiter(),
         'nest': NestJsWaiter(),
+        'rn': ReactNativeWaiter()
     }
     support_langs = list(waiters.keys())
 
