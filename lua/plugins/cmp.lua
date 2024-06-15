@@ -11,12 +11,14 @@ return {
             os.getenv("ghproxy") .. "https://github.com/hrsh7th/cmp-path.git",
             os.getenv("ghproxy") .. "https://github.com/saadparwaiz1/cmp_luasnip.git",
             os.getenv("ghproxy") .. "https://github.com/L3MON4D3/LuaSnip.git",
+            os.getenv("ghproxy") .. "https://github.com/JensenQi/cmp-luasnip-choice.git",
             os.getenv("ghproxy") .. "https://github.com/rafamadriz/friendly-snippets.git",
             os.getenv("ghproxy") .. "https://github.com/onsails/lspkind.nvim",
         },
         config = function()
             local luasnip = require("luasnip")
             require("snippets.loader").setup()
+            require('cmp_luasnip_choice').setup({ auto_open = true })
 
             vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', { bg = 'NONE', fg = '#569CD6' })
             vim.api.nvim_set_hl(0, 'CmpItemKindCodeium', { bg = 'NONE', fg = '#60D5C4' })
@@ -115,6 +117,7 @@ return {
                 },
 
                 sources = cmp.config.sources({
+                    { name = 'luasnip_choice' },
                     {
                         name = "codeium",
                         entry_filter = function(entry, ctx)
@@ -193,7 +196,7 @@ return {
 
                         local line_num, col_num = unpack(vim.api.nvim_win_get_cursor(0))
                         if col_num == 0 then
-                            return -- 输入少于 1 个字符不发起补全
+                            return  -- 输入少于 1 个字符不发起补全
                         end
 
                         local current_line = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, true)[1]

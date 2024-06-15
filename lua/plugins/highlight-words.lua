@@ -5,7 +5,7 @@ return {
     {
         os.getenv("ghproxy") .. "https://github.com/Mr-LLLLL/interestingwords.nvim.git",
         dependencies = {
-            os.getenv("ghproxy") .. "https://github.com/xiyaowong/nvim-cursorword.git",
+            os.getenv("ghproxy") .. "https://github.com/tzachar/local-highlight.nvim.git"
         },
         version = "*",
         config = function()
@@ -17,9 +17,16 @@ return {
                 cancel_search_key = keymap.word_cancel_highlight
             })
 
-            vim.api.nvim_set_hl(0, 'CursorWord', { bg = '#4A7056' })
-
-            vim.g.cursorword_disable_filetypes = { "NvimTree", "TelescopePrompt", "TelescopeResults", "sagafinder" }
+            require('local-highlight').setup({
+                disable_file_types = { "NvimTree", "TelescopePrompt", "TelescopeResults", "sagafinder" },
+                hlgroup = 'Search',
+                cw_hlgroup = nil,
+                insert_mode = false, -- Whether to display highlights in INSERT mode or not
+                min_match_len = 1,
+                max_match_len = math.huge,
+                highlight_single_match = true,
+            })
+            vim.opt.updatetime = 300
             -- vim.api.nvim_create_autocmd("FileType", {
             --     callback = function() vim.notify(vim.bo.filetype) end
             -- })
