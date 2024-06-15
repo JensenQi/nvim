@@ -12,6 +12,9 @@ return {
         },
         config = function()
             local workspace_home = os.getenv("WORKSPACE_HOME")
+            if workspace_home == nil then -- 非项目工程则不启动 yanky
+                return
+            end
             local yanky = require("yanky")
             yanky.setup({
                 ring = {

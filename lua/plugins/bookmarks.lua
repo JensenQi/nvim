@@ -10,7 +10,7 @@ return {
         },
         config = function()
             local workspace_home = os.getenv("WORKSPACE_HOME")
-            if workspace_home == nil then
+            if workspace_home == nil then -- 非项目工程则不启用 bookmarks 插件
                 return
             end
             local bm = require('bookmarks')

@@ -29,6 +29,10 @@ return {
             os.getenv("ghproxy") .. "https://github.com/j-hui/fidget.nvim.git",
         },
         config = function()
+            if _G.PROJECT_TYPE == nil then -- 非项目工程则不启动 lspsaga
+                return
+            end
+
             vim.diagnostic.config({ virtual_text = false })
             require('lspsaga').setup({
                 symbol_in_winbar = { -- 头部路径

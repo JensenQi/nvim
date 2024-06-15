@@ -5,10 +5,10 @@ return {
         version = "*",
         config = function()
             local workspace_home = os.getenv("WORKSPACE_HOME")
-            if workspace_home == nil then
+            if workspace_home == nil then -- 非项目工程不启用 auto-session
                 return
             end
-            require("auto-session").setup {
+            require("auto-session").setup({
                 log_level = "error",
                 auto_session_suppress_dirs = { "~/" },
                 auto_session_root_dir = workspace_home .. "/.vim/session",
@@ -26,7 +26,7 @@ return {
                         api.tree.toggle { focus = false, find_file = true }
                     end,
                 },
-            }
+            })
         end
     }
 }
