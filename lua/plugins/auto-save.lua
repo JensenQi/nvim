@@ -14,7 +14,7 @@ return {
                     cleaning_interval = 1250,
                 },
                 trigger_events = {
-                    immediate_save = { "BufLeave", "WinLeave", "FocusLost" },
+                    immediate_save = { "BufLeave", "WinLeave", "FocusLost", "CmdlineEnter" },
                     defer_save = { "InsertLeave", "TextChanged" },
                     cancel_defered_save = { "InsertEnter" },
                 },

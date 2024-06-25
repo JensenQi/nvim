@@ -71,6 +71,7 @@ local function start_lsp(opts)
         })
     elseif lang == "scala" then
         local metals_config = require("metals").bare_config()
+        metals_config.settings.mavenScript = "/root/.config/nvim/share/maven/bin/mvn"
         metals_config.init_options.statusBarProvider = "off" -- Scala progress 重定向给 fidget
         local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
         -- scala 的 metals 与 java 的 jdtls 类似, 每个 buf 都需要 attach

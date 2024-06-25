@@ -13,12 +13,19 @@ fi
 
 # download nvim
 if [ ! -d ~/.config/nvim/core ]; then
-    curl -fLo  ~/.config/nvim/neovim.tar.gz ${ghproxy}/https://github.com/neovim/neovim/releases/download/v0.9.5/nvim-linux64.tar.gz
+    curl -fLo  ~/.config/nvim/neovim.tar.gz ${ghproxy}/https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz
     tar -xzf ~/.config/nvim/neovim.tar.gz -C ~/.config/nvim
     mv ~/.config/nvim/nvim-linux64 ~/.config/nvim/core
     rm ~/.config/nvim/neovim.tar.gz
 fi
 
+if [ ! -f /usr/bin/file ] && [ ! -f /bin/file ]; then
+    sudo apt-get -y install file
+fi
+
+if [ ! -f /usr/bin/unzip ] && [ ! -f /bin/unzip ]; then
+    sudo apt-get -y install unzip
+fi
 
 # install rip grep
 if [ ! -f /usr/bin/rg ] && [ ! -f /bin/rg ]; then
@@ -28,6 +35,11 @@ fi
 # install fd find
 if [ ! -f /bin/fdfind ] && [ ! -f /usr/bin/fdfind ]; then
     sudo apt-get -y install fd-find
+fi
+
+# install make
+if [ ! -f /usr/bin/make ] && [ ! -f /bin/make ]; then
+    sudo apt-get -y install make
 fi
 
 # install cmake
