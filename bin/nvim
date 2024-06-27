@@ -72,6 +72,25 @@ if [ ! -f /usr/bin/lldb ] && [ ! -f /bin/lldb ]; then
     sudo apt-get -y install lldb
 fi
 
+# install protobuf
+if [ ! -f /usr/bin/protoc ] && [ ! -f /bin/protoc ]; then
+    curl -fLo ${XDG_DATA_HOME}/protobuf-2.5.0.tar.gz https://mirror.ghproxy.com/https://github.com/google/protobuf/releases/download/v2.5.0/protobuf-2.5.0.tar.gz
+    tar -xzf ${XDG_DATA_HOME}/protobuf-2.5.0.tar.gz -C ${XDG_DATA_HOME}
+    cd ${XDG_DATA_HOME}/protobuf-2.5.0
+    ./autogen.sh
+    ./configure --prefix=/usr
+    make -j4 && make install
+    rm -rf ${XDG_DATA_HOME}/protobuf-2.5.0
+    rm ${XDG_DATA_HOME}/protobuf-2.5.0.tar.gz
+    cd -
+fi
+
+# install ruby
+if [ ! -f /usr/bin/ruby ] && [ ! -f /bin/ruby ]; then
+    sudo apt-get -y install ruby-full
+    gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
+    bundle config mirror.https://rubygems.org https://gems.ruby-china.com
+fi
 
 # install node.js
 if [ ! -d ${XDG_DATA_HOME}/node ]; then
