@@ -18,7 +18,7 @@ vim.cmd("command Q q")
 vim.cmd("command W w")
 vim.cmd("command WQ wq")
 vim.cmd("command Wq wq")
-vim.cmd("command Todo TodoTelescope")
+vim.cmd("command Todo TodoTelescope initial_mode=normal")
 
 -- 全局变量
 local util = require("util")
