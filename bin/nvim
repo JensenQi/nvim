@@ -105,6 +105,8 @@ if [ ! -d ${XDG_DATA_HOME}/node ]; then
     npm install -g neovim
     npm install -g tree-sitter
     npm install -g @vercel/ncc
+    yarnpkg set registry http://registry.npmmirror.com # 设置 yarn 国内镜像
+    yarnpkg config set disable-self-update-check true # 关闭自动更新检查，避免 yarnpkg install 后自测超时
     wget -O ${XDG_DATA_HOME}/node/bin/tree-sitter.gz https://mirror.ghproxy.com/https://github.com/tree-sitter/tree-sitter/releases/download/v0.20.8/tree-sitter-linux-x64.gz
     gzip -d ${XDG_DATA_HOME}/node/bin/tree-sitter.gz
     chmod +x ${XDG_DATA_HOME}/node/bin/tree-sitter
