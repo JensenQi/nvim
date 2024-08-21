@@ -10,7 +10,13 @@ local function remapKeySaga()
     keymap.map2cmd('n', keymap.find_usage, '<CMD>Lspsaga finder ref<CR>')
     keymap.map2cmd('n', keymap.find_implement, '<CMD>Lspsaga finder imp<CR>')
     keymap.map2cmd('n', keymap.code_action, "<cmd>Lspsaga code_action<cr>")
-    keymap.map2cmd('n', keymap.refactor_name, "<cmd>Lspsaga rename<cr>")
+    keymap.map2fun('n', keymap.refactor_name, function()
+        -- lspsaga 会触发 cmp 导致冲突, 因此这里用原生的 lsp rename
+        -- 短期内 rename 两次会因缓冲区没有 flush 导致 rename 失败
+        -- 所以这里先将缓冲区 flush 后在发起 rename 操作
+        vim.cmd("silent! write")
+        vim.lsp.buf.rename()
+    end)
     keymap.map2fun('n', keymap.goto_next_problem, vim.diagnostic.goto_next)
     keymap.map2cmd('n', keymap.go_back, "<C-t>")
     keymap.map2fun('n', keymap.format_file, function() vim.lsp.buf.format({ async = true }) end)
