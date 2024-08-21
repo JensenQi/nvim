@@ -56,7 +56,6 @@ return {
                 vim.keymap.set('n', keymap.file_explorer_edit, api.node.open.edit, opts("Edit"))
                 vim.keymap.set('n', keymap.file_explorer_close_parent_dir, api.node.navigate.parent_close,
                     opts("Close parent"))
-                vim.keymap.set('n', keymap.file_explorer_close_all_dir, api.tree.collapse_all, opts("collapse all"))
                 vim.keymap.set('n', keymap.file_explorer_create, api.fs.create, opts('Create'))
                 vim.keymap.set('n', keymap.file_explorer_goto_parent, api.node.navigate.parent, opts('go to parent'))
                 vim.keymap.set('n', keymap.file_explorer_rename, api.fs.rename, opts('Rename'))
@@ -67,6 +66,12 @@ return {
                 vim.keymap.set('n', keymap.file_explorer_paste, api.fs.paste, opts('paste'))
                 vim.keymap.set('n', keymap.file_explorer_show_info, api.node.show_info_popup, opts('File Infomation'))
                 vim.keymap.set('n', keymap.file_explorer_reload, api.tree.reload, opts('Reload'))
+                vim.keymap.set('n', keymap.file_explorer_larger, function()
+                    vim.cmd("NvimTreeResize +1")
+                end, opts("larger"))
+                vim.keymap.set('n', keymap.file_explorer_smaller, function()
+                    vim.cmd("NvimTreeResize -1")
+                end, opts("smaller"))
             end
 
             require("nvim-tree").setup({
