@@ -20,6 +20,8 @@ function M.setup()
     local postfix = require "luasnip.extras.postfix".postfix
 
     ls.add_snippets("java", {
+        snip("/**", { text({ "/**", " * " }), insert(1), text({ "", " */" }) }),
+        snip("/*", { text({ "/*", " * " }), insert(1), text({ "", " */" }) }),
         snip("sout", { text("System.out.println("), insert(1), text(");") }),
         snip("souf", { text("System.out.printf("), insert(1), text(");") }),
         snip("psvm", {

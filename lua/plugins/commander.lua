@@ -23,6 +23,17 @@ local function run_maven(_, filepath)
     end
 end
 
+local function run_gradle(_, filepath)
+    if string.find(filepath, "src/main/java") then
+        local class = filepath:match("src/main/java/(.+).java$"):gsub("/", ".")
+        execute('./gradlew -PmainClass=' .. class .. ' run --warning-mode none')
+    elseif string.find(filepath, "src/test/java") then
+        local class = filepath:match("src/test/java/(.+).java$"):gsub("/", ".")
+        execute('./gradlew -Dtest.single=' .. class .. ' test --warning-mode none')
+    end
+end
+
+
 local function run_cmake(working_dir, filepath)
     local build_cmd = 'cmake -S . -B build && cmake --build build '
     local c_project = vim.fn.glob(working_dir .. "/app/*.c") ~= ""
@@ -109,6 +120,8 @@ return {
 
                         if vim.fn.empty(vim.fn.glob(working_dir .. "/pom.xml")) == 0 then
                             run_maven(working_dir, filepath)
+                        elseif vim.fn.empty(vim.fn.glob(working_dir .. "/build.gradle")) == 0 then
+                            run_gradle(working_dir, filepath)
                         elseif vim.fn.empty(vim.fn.glob(working_dir .. "/pyproject.toml")) == 0 then
                             run_python(working_dir, filepath)
                         elseif vim.fn.empty(vim.fn.glob(working_dir .. "/CMakeLists.txt")) == 0 then

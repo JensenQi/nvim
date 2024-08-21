@@ -1,4 +1,5 @@
 -- 文件树插件
+local util = require("util")
 local keymap = require("keymap")
 keymap.map2cmd('n', keymap.switch_file_explorer_and_editor, '<C-w>w')
 
@@ -74,11 +75,26 @@ return {
                     group_empty = true,
                 },
                 filters = {
-                    custom = {
-                        "\\.git", "\\.vim", "\\.idea", "target", "build/",
-                        "node_modules", "__pycache__", "\\.bloop", "\\.metals",
-                        "\\.state"
-                    },
+                    custom = function(absolute_path)
+                        if absolute_path:match("%.git") or absolute_path:match("%.vim")
+                            or absolute_path:match("%.idea") or absolute_path:match("%.bloop")
+                            or absolute_path:match("%.metals") or absolute_path:match("%.state")
+                            or absolute_path:match("%.settings") or absolute_path:match("%.classpath")
+                            or absolute_path:match("%.project") or absolute_path:match("/gradle$")
+                            or absolute_path:match("node_modules") or absolute_path:match("__pycache__")
+                            or absolute_path:match("/build$") or absolute_path:match("/target$")
+                            or absolute_path:match("gradlew")
+                        then
+                            return true
+                        end
+
+                        -- gradle 编译结果
+                        if absolute_path:match("bin") and util.exists(absolute_path .. "/main") then
+                            return true
+                        end
+
+                        return false
+                    end,
                     exclude = {},
                 },
                 update_focused_file = {

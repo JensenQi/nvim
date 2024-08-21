@@ -25,6 +25,7 @@ local util = require("util")
 NVIM_HOME = os.getenv("NVIM_HOME")
 PROJECT_PATH = vim.loop.cwd()
 PROJECT_NAME = PROJECT_PATH:match("^.+/(.+)$")
+LSP_READY = false
 
 if util.exists(PROJECT_PATH .. "/pom.xml") then
     if util.exists(PROJECT_PATH .. "/src/main/scala") then
@@ -32,6 +33,8 @@ if util.exists(PROJECT_PATH .. "/pom.xml") then
     else
         PROJECT_TYPE = "java"
     end
+elseif util.exists(PROJECT_PATH .. "/build.gradle") then
+    PROJECT_TYPE = "java"
 elseif util.exists(PROJECT_PATH .. "/pyproject.toml") then
     PROJECT_TYPE = "python"
 elseif util.exists(PROJECT_PATH .. "/CMakeLists.txt") then

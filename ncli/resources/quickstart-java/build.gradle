@@ -1,0 +1,78 @@
+allprojects {
+    group = '{group_id}'
+    version = '{version}'
+    allprojects {
+        repositories {
+            maven { url 'https://repo.huaweicloud.com/repository/maven' }
+            maven { url 'https://repo.nju.edu.cn/repository/maven-public' }
+            maven { url 'https://mirrors.sjtug.sjtu.edu.cn/maven-central' }
+            maven { url 'https://maven.aliyun.com/repository/central' }
+            maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+            maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+            maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+            maven { url 'https://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+            maven { url 'https://maven.aliyun.com/repository/spring' }
+            maven { url 'https://maven.aliyun.com/repository/spring-plugin' }
+            maven { url 'https://maven.aliyun.com/repository/grails-core' }
+            maven { url 'https://maven.aliyun.com/repository/apache-snapshots' }
+        }
+    }
+}
+
+buildscript {
+    ext {
+        jvm_version = '17'
+    }
+
+    repositories {
+        maven { url 'https://repo.huaweicloud.com/repository/maven' }
+        maven { url 'https://repo.nju.edu.cn/repository/maven-public' }
+        maven { url 'https://mirrors.sjtug.sjtu.edu.cn/maven-central' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/spring' }
+        maven { url 'https://maven.aliyun.com/repository/spring-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/grails-core' }
+        maven { url 'https://maven.aliyun.com/repository/apache-snapshots' }
+    }
+}
+
+subprojects {
+    apply plugin: "java"
+    apply plugin: "maven-publish"
+    apply plugin: "application"
+
+    dependencies {
+        implementation "org.projectlombok:lombok:1.18.24"
+        implementation "log4j:log4j:1.2.17"
+        implementation "com.google.guava:guava:28.0-jre"
+
+        testImplementation "junit:junit:4.11"
+    }
+
+    sourceCompatibility = jvm_version
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                from(components.java)
+            }
+        }
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    task jars(type: Copy) {
+        from sourceSets.main.runtimeClasspath into '../jars/'
+    }
+
+    application {
+        mainClassName = project.hasProperty("mainClass") ? project.getProperty("mainClass") : "NULL"
+    }
+
+}

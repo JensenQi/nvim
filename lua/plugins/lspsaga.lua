@@ -91,8 +91,9 @@ return {
                 progress = {
                     display = {
                         format_annote = function(msg)
-                            if msg.done and msg.title == ready_signal[_G.PROJECT_TYPE] then
+                            if msg.done and msg.title == ready_signal[_G.PROJECT_TYPE] and not _G.LSP_READY then
                                 vim.notify("LSP of " .. _G.PROJECT_TYPE .. " Ready")
+                                _G.LSP_READY = true
                                 remapKeySaga()
                             end
                             return msg.title

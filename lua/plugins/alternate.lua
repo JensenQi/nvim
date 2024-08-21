@@ -4,7 +4,7 @@ local keymap = require("keymap")
 -- 单元测试跳转
 keymap.map2fun("n", keymap.goto_test_file, function()
     vim.g.telescope_alternate_mappings = {
-        { 'src/main/java/(.*)/(.*).java',   { { 'src/test/java/[1]/[2]Test.java' } } },    -- java
+        { '(.*)src/main/java/(.*)/(.*).java',   { { '[1]src/test/java/[2]/[3]Test.java' } } },    -- java
         { 'src/main/scala/(.*)/(.*).scala', { { 'src/test/scala/[1]/[2]Suite.scala' } } }, -- scala
         { 'src/(.*)/(.*).py',               { { 'tests/[1]/test_[2].py' } } },             -- python
         -- cpp
@@ -20,7 +20,7 @@ end)
 -- 源文件跳转
 keymap.map2fun("n", keymap.goto_source_file, function()
     vim.g.telescope_alternate_mappings = {
-        { 'src/test/java/(.*)/(.*)Test.java',    { { 'src/main/java/[1]/[2].java' } } },   -- java
+        { '(.*)src/test/java/(.*)/(.*)Test.java',    { { '[1]src/main/java/[2]/[3].java' } } },   -- java
         { 'src/test/scala/(.*)/(.*)Suite.scala', { { 'src/main/scala/[1]/[2].scala' } } }, -- scala
         { 'tests/(.*)/test_(.*).py',             { { 'src/[1]/[2].py' } } },               -- python
         -- cpp

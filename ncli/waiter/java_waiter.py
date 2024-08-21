@@ -30,18 +30,56 @@ class JavaWaiter(AbstractWaiter):
                 .set("version", version) \
                 .save(f"{self.project_loc}/pom.xml")
 
-        DynamicResource("quickstart-java/Foo.java")\
-            .set("group_id", group_id)\
-            .set("artifact_id", artifact_id)\
-            .save(f"{self.project_loc}/src/main/java/{package_path}/Foo.java")
+            DynamicResource("quickstart-java/Foo.java")\
+                .set("group_id", group_id)\
+                .set("artifact_id", artifact_id)\
+                .save(f"{self.project_loc}/src/main/java/{package_path}/Foo.java")
 
-        DynamicResource("quickstart-java/FooTest.java")\
-            .set("group_id", group_id)\
-            .set("artifact_id", artifact_id)\
-            .save(f"{self.project_loc}/src/test/java/{package_path}/FooTest.java")
+            DynamicResource("quickstart-java/FooTest.java")\
+                .set("group_id", group_id)\
+                .set("artifact_id", artifact_id)\
+                .save(f"{self.project_loc}/src/test/java/{package_path}/FooTest.java")
 
-        DynamicResource("log4j.properties")\
-            .set("artifact_id", artifact_id)\
-            .save(f"{self.project_loc}/src/main/resources/log4j.properties") \
-            .save(f"{self.project_loc}/src/test/resources/log4j.properties") \
+            DynamicResource("log4j.properties")\
+                .set("artifact_id", artifact_id)\
+                .save(f"{self.project_loc}/src/main/resources/log4j.properties")
+        else:
+            DynamicResource("quickstart-java/Foo.java")\
+                .set("group_id", group_id)\
+                .set("artifact_id", artifact_id + ".core")\
+                .save(f"{self.project_loc}/core/src/main/java/{package_path}/core/Foo.java")
+
+            DynamicResource("quickstart-java/FooTest.java")\
+                .set("group_id", group_id)\
+                .set("artifact_id", artifact_id + ".core")\
+                .save(f"{self.project_loc}/core/src/test/java/{package_path}/core/FooTest.java")
+
+            DynamicResource("log4j.properties")\
+                .set("artifact_id", artifact_id + ".core")\
+                .save(f"{self.project_loc}/core/src/main/resources/log4j.properties")
+
+            NewResource("description = 'core'\n\ndependencies {\n\n}")\
+                .save(f"{self.project_loc}/core/build.gradle")
+
+            DynamicResource("quickstart-java/build.gradle") \
+                .set("group_id", group_id) \
+                .set("version", version) \
+                .save(f"{self.project_loc}/build.gradle")
+
+            DynamicResource("quickstart-java/settings.gradle") \
+                .set("artifact_id", artifact_id) \
+                .save(f"{self.project_loc}/settings.gradle")
+
+            StaticResource("quickstart-java/gradle-wrapper")\
+                 .save(f"{self.project_loc}/gradle/wrapper")
+
+            StaticResource("quickstart-java/gradle.properties")\
+                 .save(f"{self.project_loc}/gradle.properties")
+
+            StaticResource("quickstart-java/gradlew")\
+                 .save(f"{self.project_loc}/gradlew")
+
+            StaticResource("quickstart-java/gradlew.bat")\
+                 .save(f"{self.project_loc}/gradlew.bat")
+
 
