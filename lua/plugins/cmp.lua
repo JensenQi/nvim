@@ -199,7 +199,7 @@ return {
                             return  -- 输入少于 1 个字符不发起补全
                         end
 
-                        local current_line = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, true)[1]
+                        local current_line = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, true)[1]:sub(1, col_num)
                         local last_char = current_line:sub(col_num, col_num)
 
                         if last_char == ' ' then

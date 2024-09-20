@@ -29,7 +29,7 @@ local function run_gradle(_, filepath)
         execute('./gradlew -PmainClass=' .. class .. ' run --warning-mode none')
     elseif string.find(filepath, "src/test/java") then
         local class = filepath:match("src/test/java/(.+).java$"):gsub("/", ".")
-        execute('./gradlew -Dtest.single=' .. class .. ' test --warning-mode none')
+        execute('./gradlew test --tests "' .. class .. '" --warning-mode none')
     end
 end
 

@@ -21,6 +21,7 @@ function M.setup()
 
     ls.add_snippets("java", {
         snip("/**", { text({ "/**", " * " }), insert(1), text({ "", " */" }) }),
+        snip('"""', { text({ '"""', "    " }), insert(1), text({ "", '""' }) }),
         snip("/*", { text({ "/*", " * " }), insert(1), text({ "", " */" }) }),
         snip("sout", { text("System.out.println("), insert(1), text(");") }),
         snip("souf", { text("System.out.printf("), insert(1), text(");") }),
@@ -127,6 +128,48 @@ function M.setup()
         snip("info", { text("logger.info("), insert(1), text(");") }),
         snip("warn", { text("logger.warn("), insert(1), text(");") }),
 
+        -- mybatis
+        snip("@Options", { text({ '@Options(useGeneratedKeys = true, keyProperty = "' }), insert(1), text({ '")' }) }),
+        snip("@Insert", {
+            text({ '@Insert("""', '    insert into ' }),
+            insert(1),
+            text({ '(' }),
+            insert(2),
+            text({ ')', '    values(' }),
+            insert(3),
+            text({ ')', '""")' })
+        }),
+        snip("@Update", {
+            text({ '@Update("""', '    update ' }),
+            insert(1),
+            text({ '', '    set ' }),
+            insert(2),
+            text({ '', '    where ' }),
+            insert(3),
+            text({ '', '""")' })
+        }),
+        snip("@Select", {
+            text({ '@Select("""', '    select ' }),
+            insert(1),
+            text({ '', '    from ' }),
+            insert(2),
+            text({ '', '    where ' }),
+            insert(3),
+            text({ '', '""")' })
+        }),
+        snip("@Param", { text({ '@Param("' }), insert(1), text({ '")' }) }),
+        snip("<script", {
+            text({ '<script>', '    ' }),
+            insert(1),
+            text({ '', '</script>' })
+        }),
+        snip("<if", {
+            text("<if test='"),
+            insert(1),
+            text("'>"),
+            insert(2),
+            text('</if>')
+        }),
 
     })
 end
