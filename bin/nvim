@@ -3,7 +3,7 @@
 export XDG_DATA_HOME=~/.config/nvim/share
 export XDG_STATE_HOME=~/.config/nvim/state
 export XDG_CACHE_HOME=~/.config/nvim/.cache
-export ghproxy="https://mirror.ghproxy.com/"
+export ghproxy="https://ghp.ci/"
 export NVIM_HOME=$(dirname "$0")/..
 
 current_path=`pwd`
@@ -164,7 +164,12 @@ if [ ! -d ${XDG_DATA_HOME}/maven ]; then
     mv ${XDG_DATA_HOME}/apache-maven-3.8.8 ${XDG_DATA_HOME}/maven
     rm ${XDG_DATA_HOME}/maven.tar.gz
     if [ ! -f ~/.m2/settings.xml ]; then
+        mkdir -p ~/.m2
         cp ~/.config/nvim/lua/configurations/maven-settings.xml ~/.m2/settings.xml
+    fi
+    if [ ! -f ~/.gradle/init.gradle ]; then
+        mkdir -p ~/.gradle
+        cp ~/.config/nvim/lua/configurations/init.gradle ~/.gradle/init.gradle
     fi
 fi
 

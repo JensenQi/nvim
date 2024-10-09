@@ -1,6 +1,6 @@
 #!/bin/sh
 old_host=`cat /etc/hosts | sed "/#Github Hosts Start/,/#Github Hosts End/d"`
-new_host=`curl https://mirror.ghproxy.com/https://raw.githubusercontent.com/maxiaof/github-hosts/master/hosts`
+new_host=`curl https://ghp.ci/https://raw.githubusercontent.com/maxiaof/github-hosts/master/hosts`
 
 merge_host="${old_host}\n\n${new_host}"
 

@@ -1,7 +1,7 @@
 allprojects{
     repositories {
-        maven { url 'https://repo.nju.edu.cn/repository/maven-public' }
         maven { url 'https://repo.huaweicloud.com/repository/maven' }
+        maven { url 'https://repo.nju.edu.cn/repository/maven-public' }
         maven { url 'https://mirrors.sjtug.sjtu.edu.cn/maven-central' }
         maven { url 'https://maven.aliyun.com/repository/central' }
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
@@ -16,8 +16,8 @@ allprojects{
 
     buildscript {
         repositories {
-            maven { url 'https://repo.nju.edu.cn/repository/maven-public' }
             maven { url 'https://repo.huaweicloud.com/repository/maven' }
+            maven { url 'https://repo.nju.edu.cn/repository/maven-public' }
             maven { url 'https://mirrors.sjtug.sjtu.edu.cn/maven-central' }
             maven { url 'https://maven.aliyun.com/repository/central' }
             maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
