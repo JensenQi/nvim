@@ -227,7 +227,7 @@ export GO111MODULE=on
 export PATH=${XDG_DATA_HOME}/go/bin:$PATH
 if [ ! -d ${XDG_DATA_HOME}/go ]; then
     echo "golang missing, install it..."
-    curl -fLo  ${XDG_DATA_HOME}/go.tar.gz https://mirrors.aliyun.com/golang/go1.21.0.linux-amd64.tar.gz
+    curl -fLo  ${XDG_DATA_HOME}/go.tar.gz https://mirrors.aliyun.com/golang/go1.27.0.linux-amd64.tar.gz
     tar -xzf ${XDG_DATA_HOME}/go.tar.gz -C ${XDG_DATA_HOME}
     rm ${XDG_DATA_HOME}/go.tar.gz
     go install github.com/segmentio/golines@v0.9.0
